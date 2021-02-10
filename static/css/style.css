@@ -133,6 +133,7 @@ body {
 .absolute {position: absolute;}
 .fixed {position: fixed;}
 .d-block {display: block;}
+.d-none {display: none !important;}
 .pointer {cursor: pointer;}
 
 .text-left {text-align: left;}
@@ -151,18 +152,6 @@ body {
 
 .flex-column-reverse {
   flex-direction: column-reverse;}
-.flex-grow-0 {
-  flex-grow: 0;}
-
-.flex-grow-1 {
-  flex-grow: 1;}
-
-.flex-shrink-0 {
-  flex-shrink: 0;}
-
-.flex-shrink-1 {
-  flex-shrink: 1;}
-
 .flex-wrap {
   flex-wrap: wrap;}
 
@@ -1083,7 +1072,6 @@ body {
   cursor: text;
   top: 20px;
 }
-
 .form__label {
   position: absolute;
   top: 0;
@@ -1103,6 +1091,73 @@ body {
   transition: 0.2s;
   font-size: .8rem;
   color: #1e1e1e;
+}
+
+.field_gray .form__field{
+  background-color: #efefef;
+  color: #999;
+  border: none;
+  border-radius: 5px;
+  padding-left: 1rem;
+}
+.field_gray .form__field::placeholder {
+  color: #999;
+}
+.field_center .form__field:placeholder-shown::placeholder {
+  text-align: center;
+}
+.field .fas {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transition: 0.2s;
+}
+.field_gray .fas {
+  color: #999;
+}
+.field_center .form__field:placeholder-shown ~ .fas {
+  left: 40%;
+}
+.field > .form__field {
+  padding-left: 2rem;
+}
+.field_center .form__field:focus::placeholder {
+  text-align: left;
+}
+.field_center .form__field:focus ~ .fas {
+  left: 10px;
+}
+
+.popup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  min-width: 220px;
+  background-color: #fff;
+  border-radius: 20px;
+  z-index: 3;
+}
+.popup .popup__item {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.popup .popup__item:hover {
+  background-color: #e4e4e4;
+}
+.popup .popup__item .icon {
+  width: 40px;
+  font-size: 30px;
+  color: #3369f3;
+}
+.popup .popup__item .text {
+  font-size: 20px;
+  color: #1e1e1e;
+  font-weight: 600;
 }
 
 .page {
@@ -1144,5 +1199,190 @@ body {
 }
 .page-login-signin .card .buttons {
     width: 100%;
+}
+/* #endregion */
+/* #region Страница Chat */
+.page-chat .chats {
+  flex-grow: 1;
+  background-color: #fbfbfb;
+  border-right: solid 1px #eaeaea;
+}
+.page-chat .chats .chats-header {
+  color: #999;
+  font-size: 18px;
+}
+.page-chat .chats .chats-list .chats-list__item {
+  position: relative;
+  background-color: inherit;
+  transition: background-color 0.2s;
+}
+.page-chat .chats .chats-list .chats-list__item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 8px;
+  width: calc(100% - 16px);
+  height: 1px;
+  background-color: #eaeaea;
+}
+.page-chat .chats .chats-list .chats-list__item::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 8px;
+  width: calc(100% - 16px);
+  height: 1px;
+  background-color: #eaeaea;
+}
+.page-chat .chats .chats-list .chats-list__item:nth-child(even)::before {
+  content: none;
+}
+.page-chat .chats .chats-list .chats-list__item:hover {
+  background-color: #E4EDFD;
+}
+.page-chat .chats .chats-list .chats-list__item .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #efefef;
+  color: #999;
+}
+.page-chat .chats .chats-list .chats-list__item .text {
+  height: 100%;
+  flex: 1;
+}
+.page-chat .chats .chats-list .chats-list__item .info {
+  height: 100%;
+}
+.page-chat .chats .chats-list .chats-list__item .info .date {
+  font-size: 13px;
+  color: #999;
+}
+.page-chat .chats .chats-list .chats-list__item .info .notification {
+  width: 25px;
+  height: 25px;
+  background-color: #3369F3;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 50%;
+}
+.page-chat .chats .chats-list .chats-list__item .text .name {
+  font-weight: 700;
+  color: #1e1e1e;
+}
+.page-chat .chats .chats-list .chats-list__item .text .message {
+  color: #999;
+}
+
+.page-chat .messages {
+  flex-grow: 8;
+  background-color: #fff;
+}
+.page-chat .messages.messages_empty .messages_empty__text {
+  font-size: 18px;
+  color: #999;
+}
+
+.page-chat .messages .messages-header::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  width: 100%;
+  height: 1px;
+  background-color: #eaeaea;
+}
+.page-chat .messages .messages-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #efefef;
+  color: #999;
+}
+.page-chat .messages .messages-header .name {
+  flex: 1;
+  font-weight: bold;
+  font-size: 15px;
+}
+.page-chat .messages .messages-header .info {
+  background-color: inherit;
+  color: #1e1e1e;
+  font-size: 20px;
+}
+.page-chat .messages .messages-header .popup {
+  bottom: -115px;
+  right: 0;
+}
+
+.page-chat .messages .messages-area {
+  flex: 1;
+}
+.page-chat .messages .messages-area .date {
+  color: #999;
+}
+.page-chat .messages .messages-area .message {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  max-width: 25%;
+}
+.page-chat .messages .messages-area .message .image {
+  width: 100%;
+}
+.page-chat .messages .messages-area .message .image ~ .time {
+  padding: 5px 12px;
+  background: rgba(82, 82, 82, 0.5);
+  border-radius: 30px;
+  color: #fff;
+}
+.page-chat .messages .messages-area .message.message_my {
+  background-color: #E4EDFD;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+}
+.page-chat .messages .messages-area .message .text {
+  max-width: 90%;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+.page-chat .messages .messages-area .message .time {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  color: #999;
+}
+.page-chat .messages .messages-area .message.message_my .time {
+  color: #3369F3;
+}
+
+.page-chat .messages .messages-controls::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  width: 100%;
+  height: 1px;
+  background-color: #eaeaea;
+}
+.page-chat .messages .messages-controls .clip {
+  background-color: inherit;
+  color: #999;
+  font-size: 25px;
+}
+.page-chat .messages .messages-controls .popup {
+  top: -185px;
+  left: 0;
+}
+.page-chat .messages .messages-controls .field {
+  margin: 0;
+  padding: 0;
+}
+.page-chat .messages .messages-controls .field_gray .form__field {
+  border-radius: 25px;
+}
+.page-chat .messages .messages-controls .send {
+  background-color: #3369F3;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 50%;
 }
 /* #endregion */
