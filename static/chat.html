@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/fontawesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Chat</title>
+</head>
+<body>
+    <main class="page page-chat d-flex">
+        <div class="chats d-flex flex-column">
+            <a href="./profile.html" class="chats-header text-right pointer mt-5 px-2">Профиль ></a>
+            <div class="chats-search px-2">
+                <div class="field field_gray field_center">
+                    <input type="input" class="form__field" placeholder="Поиск" name="search" required />
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <ul class="chats-list d-flex flex-column mt-5">
+                <li class="chats-list__item d-flex justify-start align-center mt-2 pa-2 py-3 pointer">
+                    <div class="avatar d-flex justify-center align-center mt-1 mr-2">
+                        <i class="fas fa-user-alt"></i>
+                    </div>
+                    <div class="text d-flex flex-column mr-2">
+                        <span class="name">My name</span>
+                        <span class="message">My message to you</span>
+                    </div>
+                    <div class="info d-flex flex-column justify-space-between align-center">
+                        <span class="date">10:49</span>
+                        <span class="notification d-flex justify-center align-center">2</span>
+                    </div>
+                </li>
+                <li class="chats-list__item d-flex justify-start align-center mt-2 pa-2 py-3 pointer">
+                    <div class="avatar d-flex justify-center align-center mt-1 mr-2">
+                        <i class="fas fa-user-alt"></i>
+                    </div>
+                    <div class="text d-flex flex-column mr-2">
+                        <span class="name">My name</span>
+                        <span class="message">My message to you</span>
+                    </div>
+                    <div class="info d-flex flex-column justify-space-between align-center">
+                        <span class="date">10:49</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="messages messages_empty d-flex justify-center align-center">
+            <span class="messages_empty__text">Выберите чат чтобы отправить сообщения</span>
+        </div>
+        <div class="messages messages-chat d-flex flex-column justify-space-between d-none">
+            <header class="messages-header relative d-flex justify-start align-center mx-5 my-4">
+                <ul class="popup shadow d-none" id="user-info-popup">
+                    <li class="popup__item">
+                        <div class="icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <span class="text">Добавить пользователя</span>
+                    </li>
+                    <li class="popup__item">
+                        <div class="icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <span class="text">Удалить пользователя</span>
+                    </li>
+                </ul>
+                <div class="avatar d-flex justify-center align-center mr-4">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <span class="name">Name</span>
+                <button class="info" id="user-info">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </header>
+            <div class="messages-area d-flex flex-column justify-end mx-5">
+                <span class="date align-self-center my-4">19 июня</span>
+                <div class="message relative align-self-start my-4 pa-3">
+                    <p class="text">Здесь будет чужой текст сообщения</p>
+                    <span class="time">04:20</span>
+                </div>
+                <div class="message relative align-self-start my-1">
+                    <img src="./img/cat.png" alt="Image example" draggable="false" class="image">
+                    <span class="time">04:20</span>
+                </div>
+                <div class="message message_my relative align-self-end my-4 pa-3">
+                    <p class="text">Здесь будет мой собственный текст сообщения</p>
+                    <div class="time">
+                        <i class="fas fa-check-double"></i>
+                        <span>04:20</span>
+                    </div>
+                </div>
+            </div>
+            <div class="messages-controls relative d-flex justify-space-between align-center mx-5 my-4">
+                <ul class="popup shadow d-none" id="clip-popup">
+                    <li class="popup__item">
+                        <div class="icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <span class="text">Видео и фото</span>
+                    </li>
+                    <li class="popup__item">
+                        <div class="icon">
+                            <i class="far fa-file"></i>
+                        </div>
+                        <span class="text">Файл</span>
+                    </li>
+                    <li class="popup__item">
+                        <div class="icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <span class="text">Локация</span>
+                    </li>
+                </ul>
+                <button class="clip mr-4" id="clip">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <div class="field field_gray">
+                    <input type="input" class="form__field" placeholder="Сообщение" name="message" required />
+                </div>
+                <button class="send d-flex justify-center align-center ml-4 pa-2">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    window.onload = function () {
+        document.getElementById('user-info').onclick = function () {
+            document.getElementById('user-info-popup').classList.toggle('d-none')
+        }
+        document.getElementById('clip').onclick = function () {
+            document.getElementById('clip-popup').classList.toggle('d-none')
+        }
+
+        const chatItems = document.getElementsByClassName('chats-list__item')
+        for (let i = 0; i < chatItems.length; i++) {
+            const element = chatItems[i];
+            element.onclick = showChat
+        }
+
+
+        function showChat(e) {
+            e.preventDefault()
+
+            document.getElementsByClassName('messages_empty')[0].classList.add('d-none')
+            document.getElementsByClassName('messages-chat')[0].classList.remove('d-none')
+        }
+    }
+</script>
+</html>
