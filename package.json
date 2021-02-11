@@ -19,9 +19,5 @@
     "url": "git+https://github.com/Jefrry/yandex-praktikum-chat.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jefrry/yandex-praktikum-chat/issues"
-  },
-  "homepage": "https://github.com/Jefrry/yandex-praktikum-chat#readme"
+  "license": "ISC"
 }
