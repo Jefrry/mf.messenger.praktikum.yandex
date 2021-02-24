@@ -1194,17 +1194,6 @@ body {
     cursor: pointer;
 }
 /* #endregion */
-/* #region Страницы 500 и 404 */
-.page-error .info .info-code {
-    font-size: 65px;
-}
-.page-error .info .info-text {
-    font-size: 40px;
-}
-.page-error .info .back {
-    font-size: 35px;
-}
-/* #endregion */
 /* #region Страницы Login и Signin */
 .page-login-signin .card {
     min-width: 25%;
