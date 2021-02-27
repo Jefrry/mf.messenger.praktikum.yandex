@@ -1,0 +1,16 @@
+.page-login-signin .card {
+    min-width: 25%;
+    min-height: 60%;
+    max-height: 90%;
+    border-radius: 2%;
+}
+.page-login-signin .card .title {
+    font-size: 25px;
+}
+.page-login-signin .card .form {
+    width: 100%;
+    flex: 1;
+}
+.page-login-signin .card .buttons {
+    width: 100%;
+}

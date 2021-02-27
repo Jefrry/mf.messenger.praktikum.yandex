@@ -3,10 +3,10 @@ class Block {
     /** JSDoc
      * @param {string} tagName
      * @param {Object} props
-     *
+     * @param containerAttrs
      * @returns {void}
      */
-    constructor(tagName = "div", props = {}) {
+    constructor(tagName = "div", props, containerAttrs) {
         this.setProps = (nextProps) => {
             const oldProps = this.props;
             this.props = this._makePropsProxy(nextProps); // newProps
@@ -14,6 +14,8 @@ class Block {
             return true;
         };
         const eventBus = new EventBus();
+        if (containerAttrs)
+            this.containerAttrs = containerAttrs;
         this._meta = {
             tagName,
             props
@@ -22,7 +24,8 @@ class Block {
             INIT: "init",
             FLOW_CDM: "flow:component-did-mount",
             FLOW_RENDER: "flow:render",
-            FLOW_CDU: "flow:component-did-update"
+            FLOW_CDU: "flow:component-did-update",
+            FLOW_CDR: "flow:component-did-render",
         };
         this.props = this._makePropsProxy(props);
         this.eventBus = eventBus;
@@ -33,10 +36,16 @@ class Block {
         eventBus.on(this.EVENTS.INIT, this.init.bind(this));
         eventBus.on(this.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(this.EVENTS.FLOW_RENDER, this._render.bind(this));
+        eventBus.on(this.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
         eventBus.on(this.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     }
     _createResources() {
         this._element = Block._createDocumentElement(this._meta.tagName);
+        if (this.containerAttrs) {
+            for (const containerAttrsKey in this.containerAttrs) {
+                this._element.setAttribute(containerAttrsKey, this.containerAttrs[containerAttrsKey]);
+            }
+        }
     }
     init() {
         this._createResources();
@@ -46,8 +55,12 @@ class Block {
         this.componentDidMount();
         this.eventBus.emit(this.EVENTS.FLOW_RENDER);
     }
+    _componentDidRender() {
+        this.componentDidRender();
+    }
     // Может переопределять пользователь, необязательно трогать
     componentDidMount() { }
+    componentDidRender() { }
     _componentDidUpdate(oldProps, newProps) {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (response) {
@@ -61,17 +74,36 @@ class Block {
             newProps
         };
     }
+    _addEvents() {
+        if (this.props.events) {
+            const events = this.props.events;
+            Object.keys(events).forEach(eventName => {
+                // ругается No overload matches this call. непонятно почему
+                // @ts-ignore
+                this._element.addEventListener(eventName, events[eventName]);
+            });
+        }
+    }
+    _removeEvents() {
+        if (this.props.events) {
+            const events = this.props.events;
+            Object.keys(events).forEach(eventName => {
+                // ругается No overload matches this call. непонятно почему
+                // @ts-ignore
+                this._element.removeEventListener(eventName, events[eventName]);
+            });
+        }
+    }
     get element() {
         return this._element;
     }
     _render() {
         const block = this.render();
-        // Этот небезопасный метод для упрощения логики
-        // Используйте шаблонизатор из npm или напишите свой безопасный
-        // Нужно не в строку компилировать (или делать это правильно),
-        // либо сразу в DOM-элементы возвращать из compile DOM-ноду
         if (typeof block === "string") {
+            this._removeEvents();
             this._element.innerHTML = block;
+            this._addEvents();
+            this.eventBus.emit(this.EVENTS.FLOW_CDR);
         }
     }
     // Может переопределять пользователь, необязательно трогать
@@ -89,7 +121,6 @@ class Block {
         });
     }
     static _createDocumentElement(tagName) {
-        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         return document.createElement(tagName);
     }
     show() {

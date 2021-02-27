@@ -1,4 +1,4 @@
-import pathToObject from "../../utils/pathToObject.js";
+import pathToObject from "../utils/pathToObject.js";
 export default class Templator {
 
     private readonly _template: string;
@@ -21,7 +21,7 @@ export default class Templator {
         while ((key = regExp.exec(tmpl))) {
             if (key[1]) {
                 const tmplValue: string = key[1].trim()
-                const data = pathToObject(ctx, tmplValue)
+                const data = pathToObject(ctx, tmplValue, '')
 
                 if (typeof data === 'function') {
                     (window as any)[tmplValue] = data
