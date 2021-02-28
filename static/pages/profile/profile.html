@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="./profile.css">
+    <title>Profile</title>
+</head>
+<body>
+    <main class="page page-profile d-flex">
+        
+        <a href="chat.html" class="back-area d-flex flex-column justify-center align-center pointer">
+            <div class="icon d-flex justify-center align-center">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+        </a>
+        <div class="profile d-flex flex-column justify-center align-center">
+            <div class="profile-avatar d-flex flex-column justify-center align-center">
+                <div class="avatar d-flex justify-center align-center mt-1 mr-2">
+                    <i class="fas fa-user-alt"></i>
+                    <div class="avatar_hover d-flex justify-center align-center pointer">Поменять аватар</div>
+                </div>
+                <span class="name mt-3">Name</span>
+            </div>
+            
+            <ul class="profile-buttons d-flex flex-column mt-10">
+                <li class="profile-buttons__item relative d-flex mt-5 pointer">
+                    <button class="link">Изменить данные</button>
+                </li>
+                <li class="profile-buttons__item relative d-flex mt-5 pointer">
+                    <button class="link">Изменить пароль</button>
+                </li>
+                <li class="profile-buttons__item relative d-flex mt-5 pointer">
+                    <button class="logout">Выйти</button>
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+<script type="module" src="./profile.js"></script>
+</html>

@@ -75,7 +75,7 @@ class Block {
     componentDidMount() { }
     componentDidRender() { }
 
-    _componentDidUpdate(oldProps: string, newProps: string) {
+    private _componentDidUpdate(oldProps: string, newProps: string) {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (response) {
             this.eventBus.emit(this.EVENTS.FLOW_RENDER)
@@ -83,30 +83,30 @@ class Block {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    componentDidUpdate(oldProps: string, newProps: string): {[index:string]: string} {
+    componentDidUpdate(oldProps: string, newProps: string): {[key:string]: string} {
         return {
             oldProps,
             newProps
         };
     }
 
-    _addEvents(): void {
+    private _addEvents(): void {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
                 // ругается No overload matches this call. непонятно почему
                 // @ts-ignore
-                this._element.addEventListener(eventName, events[eventName]);
+                this.element.addEventListener(eventName, events[eventName]);
             });
         }
     }
-    _removeEvents(): void {
+    private _removeEvents(): void {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
                 // ругается No overload matches this call. непонятно почему
                 // @ts-ignore
-                this._element.removeEventListener(eventName, events[eventName]);
+                this.element.removeEventListener(eventName, events[eventName]);
             });
         }
     }

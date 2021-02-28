@@ -80,7 +80,7 @@ class Block {
             Object.keys(events).forEach(eventName => {
                 // ругается No overload matches this call. непонятно почему
                 // @ts-ignore
-                this._element.addEventListener(eventName, events[eventName]);
+                this.element.addEventListener(eventName, events[eventName]);
             });
         }
     }
@@ -90,7 +90,7 @@ class Block {
             Object.keys(events).forEach(eventName => {
                 // ругается No overload matches this call. непонятно почему
                 // @ts-ignore
-                this._element.removeEventListener(eventName, events[eventName]);
+                this.element.removeEventListener(eventName, events[eventName]);
             });
         }
     }
