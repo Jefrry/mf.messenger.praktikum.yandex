@@ -4,7 +4,7 @@ import Templator from "../../services/templator.js";
 import template from './input.tmpl.js';
 export default class Input extends Block {
     constructor(props) {
-        super("div", props, { class: 'field' });
+        super("div", props, { "class": `field ${props.class ?? ''}` });
         this.props = props;
     }
     componentDidRender() {

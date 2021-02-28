@@ -124,10 +124,13 @@ class Block {
         return document.createElement(tagName);
     }
     show() {
-        this.getContent().style.display = "block";
+        this.getContent().classList.remove('d-none');
     }
     hide() {
-        this.getContent().style.display = "none";
+        this.getContent().classList.add('d-none');
+    }
+    toggleVisability() {
+        this.getContent().classList.toggle('d-none');
     }
 }
 export default Block;

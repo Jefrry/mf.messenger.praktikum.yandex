@@ -7,8 +7,8 @@ export default class Input extends Block {
   private _inputEl: HTMLInputElement | null;
   private _validation: Validation;
 
-  constructor(protected props: { [key:string]: any, validation?: {text: string, fn: Function} }) {
-    super("div", props, {class: 'field'});
+  constructor(protected props: { [key:string]: any, validation?: {text: string, fn: Function}, class?: string }) {
+    super("div", props, {"class": `field ${props.class ?? ''}`});
   }
   
   componentDidRender() {

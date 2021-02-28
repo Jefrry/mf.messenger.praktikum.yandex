@@ -161,11 +161,15 @@ class Block {
     }
 
     show(): void {
-        this.getContent().style.display = "block";
+        this.getContent().classList.remove('d-none')
     }
 
     hide(): void {
-        this.getContent().style.display = "none";
+        this.getContent().classList.add('d-none')
+    }
+
+    toggleVisability(): void {
+        this.getContent().classList.toggle('d-none')
     }
 }
 export default Block
