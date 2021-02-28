@@ -1,5 +1,6 @@
 import InputComp from '../../components/input/input.js'
 import ButtonComp from '../../components/button/button.js'
+import {validationPassword, validationEmpty} from '../../utils/validator.js'
 
 const myForm = document.querySelector('form')
 const buttonsContainer = document.querySelector('.buttons')
@@ -11,9 +12,7 @@ const inputsData = [{
     placeholder: 'Логин',
     name: 'login',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationEmpty,
         text: 'Логин не может быть пустой строкой'
     }
 }, {
@@ -21,9 +20,7 @@ const inputsData = [{
     placeholder: 'Пароль',
     name: 'password',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationPassword,
         text: 'Невалидный пароль'
     }
 }]
@@ -34,9 +31,15 @@ const buttonData = {
         click: () => {
             let data = {}
 
-            inputList.forEach(x => {
-                data[x.name] = x.value
-            })
+            for (let i = 0; i < inputList.length; i++) {
+                const item = inputList[i];
+
+                if (!item.isValid()) {
+                    throw Error('Валидация не пройдена')
+                }
+
+                data[item.name] = item.value
+            }
 
             console.log(data);
         }

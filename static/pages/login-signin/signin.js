@@ -1,5 +1,6 @@
 import InputComp from '../../components/input/input.js'
 import ButtonComp from '../../components/button/button.js'
+import {validationPhone, validationPassword, validationEmail, validationEmpty} from '../../utils/validator.js'
 
 const myForm = document.querySelector('form')
 const buttonsContainer = document.querySelector('.buttons')
@@ -11,9 +12,7 @@ const inputsData = [{
     placeholder: 'Почта',
     name: 'email',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationEmail,
         text: 'Невалидная почта'
     }
 }, {
@@ -21,9 +20,7 @@ const inputsData = [{
     placeholder: 'Логин',
     name: 'login',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationEmpty,
         text: 'Логин не может быть пустой строкой'
     }
 }, {
@@ -31,9 +28,7 @@ const inputsData = [{
     placeholder: 'Имя',
     name: 'first_name',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationEmpty,
         text: 'Обязательное поле'
     }
 }, {
@@ -41,9 +36,7 @@ const inputsData = [{
     placeholder: 'Фамилия',
     name: 'second_name',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationEmpty,
         text: 'Обязательное поле'
     }
 }, {
@@ -51,19 +44,15 @@ const inputsData = [{
     placeholder: 'Телефон',
     name: 'phone',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
-        text: 'Невалидный телефон'
+        fn: validationPhone,
+        text: 'Некорректный номер телефона. Введите от 11 до 13 цифр (без пробелов и тире).'
     }
 }, {
     type: 'password',
     placeholder: 'Пароль',
     name: 'password',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationPassword,
         text: 'Невалидный пароль'
     }
 }, {
@@ -71,9 +60,7 @@ const inputsData = [{
     placeholder: 'Пароль (еще раз)',
     name: 'password_again',
     validation: {
-        fn: (v) => {
-            return v !== ''
-        },
+        fn: validationPassword,
         text: 'Пароли не совпадают'
     }
 }]
@@ -84,9 +71,15 @@ const buttonData = {
         click: () => {
             let data = {}
 
-            inputList.forEach(x => {
-                data[x.name] = x.value
-            })
+            for (let i = 0; i < inputList.length; i++) {
+                const item = inputList[i];
+
+                if (!item.isValid()) {
+                    throw Error('Валидация не пройдена')
+                }
+
+                data[item.name] = item.value
+            }
 
             console.log(data);
         }
