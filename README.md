@@ -13,4 +13,4 @@ Netlify domain https://blissful-agnesi-86d3ee.netlify.app
 ### Прототип
 В папке **UI** находятся скриншоты прототипа проекта, разделенные на странницы. Некоторые элементы и иконки **могут** отличаться от изначального прототипа, который не является pixel perfect.
 ### Использование
-Запуск проекта осуществляется с помощью команды: `npm run start`.  Сам проект по ссылке http://localhost:3000 или https://blissful-agnesi-86d3ee.netlify.app
+Запуск проекта осуществляется с помощью команд: `npm run ts-watch` и `npm run start`.  Сам проект по ссылке http://localhost:3000 или https://blissful-agnesi-86d3ee.netlify.app
