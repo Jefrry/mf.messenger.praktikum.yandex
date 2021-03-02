@@ -1,0 +1,12 @@
+// @ts-ignore
+const express = require('express');
+
+const app = express();
+const PORT = 3000;
+
+app.use(express.static('static'));
+app.use(express.static('src'));
+
+app.listen(PORT, () => {
+    console.log(`Сервер запущен: http://localhost:${PORT}/`);
+});
