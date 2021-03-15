@@ -1,4 +1,4 @@
-import pathToObject from "../utils/pathToObject.js";
+import {pathToObject} from "../utils/pathToObject.js";
 class Templator {
 
     private readonly _template: string;

@@ -1,8 +1,8 @@
-import {Block} from '../block.js'
+import {Block} from '../block/block.js'
 import {ValidationErrorComp} from '../validationError/validationError.js'
 import {Templator} from "../../services/templator.js";
 import {template} from './input.tmpl.js'
-import { IInputCompProps } from '../../types/index.js';
+import { IInputCompProps } from './input.type.js';
 
 class InputComp extends Block {
   private _inputEl: HTMLInputElement | null;

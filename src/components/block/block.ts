@@ -1,5 +1,5 @@
-import {EventBus} from '../services/eventBus.js'
-import {IBlockCompProps} from '../types/index.js'
+import {EventBus} from '../../services/eventBus.js'
+import { IBlockCompProps } from './block.type.js';
 
 class Block {
     private _element: HTMLElement;

@@ -1,5 +1,5 @@
-import { IPopupCompProps, IPopupCompPropsItem } from '../../types/index.js';
-import {Block} from '../block.js'
+import {Block} from '../block/block.js'
+import { IPopupCompProps, IPopupCompPropsItem } from './popup.type.js';
 import {PopupItemComp} from './popupItem/popupItem.js'
 class PopupComp extends Block {
     constructor(protected props: IPopupCompProps) {

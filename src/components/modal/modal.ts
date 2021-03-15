@@ -1,7 +1,7 @@
-import {Block} from '../block.js'
+import {Block} from '../block/block.js'
 import {Templator} from "../../services/templator.js";
 import {template} from './modal.tmpl.js'
-import { IModalCompProps } from '../../types/index.js';
+import { IModalCompProps } from './modal.type.js';
 class ModalComp extends Block {
     constructor(protected props: IModalCompProps) {
         super("div", props, {class: `modal d-none ${props.class}`});

@@ -1,7 +1,7 @@
-import {Block} from '../block.js'
+import {Block} from '../block/block.js'
 import {Templator} from "../../services/templator.js";
 import {template} from './button.tmpl.js'
-import { IButtonCompProps } from '../../types/index.js';
+import { IButtonCompProps } from './button.type.js';
 class ButtonComp extends Block {
     constructor(protected props: IButtonCompProps) {
         super("button", props, {"class": `button ${props.class ?? ''}`});

@@ -1,7 +1,7 @@
 import {InputComp} from '../../components/input/input.js'
 import {ButtonComp} from '../../components/button/button.js'
 import {validationPhone, validationPassword, validationEmail, validationEmpty} from '../../utils/validator.js'
-import { IInputCompProps } from '../../types/index.js'
+import { IInputCompProps } from '../../components/input/input.type.js'
 
 const myForm = document.querySelector('form')
 const buttonsContainer = document.querySelector('.buttons')
@@ -14,7 +14,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Почта',
     name: 'email',
     validation: {
-        fn: (val) => validationEmail(val),
+        fn: (val: string) => validationEmail(val),
         text: 'Невалидная почта'
     }
 }, {
@@ -22,7 +22,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Логин',
     name: 'login',
     validation: {
-        fn: (val) => validationEmpty(val),
+        fn: (val: string) => validationEmpty(val),
         text: 'Логин не может быть пустой строкой'
     }
 }, {
@@ -30,7 +30,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Имя',
     name: 'first_name',
     validation: {
-        fn: (val) => validationEmpty(val),
+        fn: (val: string) => validationEmpty(val),
         text: 'Обязательное поле'
     }
 }, {
@@ -38,7 +38,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Фамилия',
     name: 'second_name',
     validation: {
-        fn: (val) => validationEmpty(val),
+        fn: (val: string) => validationEmpty(val),
         text: 'Обязательное поле'
     }
 }, {
@@ -46,7 +46,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Телефон',
     name: 'phone',
     validation: {
-        fn: (val) => validationPhone(val),
+        fn: (val: string) => validationPhone(val),
         text: 'Некорректный номер телефона. Введите от 11 до 13 цифр (без пробелов и тире).'
     }
 }, {
@@ -54,7 +54,7 @@ const inputsData: IInputCompProps[] = [{
     placeholder: 'Пароль',
     name: 'password',
     validation: {
-        fn: (val) => validationPassword(val),
+        fn: (val: string) => validationPassword(val),
         text: 'Невалидный пароль'
     }
 }, {
