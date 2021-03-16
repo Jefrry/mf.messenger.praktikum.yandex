@@ -13,7 +13,7 @@ class Templator {
         return this._compileTemplate(ctx);
     }
 
-    _compileTemplate(ctx: object): string {
+    private _compileTemplate(ctx: object): string {
         let tmpl = this._template
         let key = null
         const regExp = this.TEMPLATE_REGEXP
