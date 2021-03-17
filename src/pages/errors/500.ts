@@ -1,14 +1,20 @@
 import {template} from './errors.tmpl.js'
 import {Templator} from '../../services/templator.js'
 import { data500 } from './mocks.js';
+import { Block } from '../../components/block/block.js';
+export default class Page500 extends Block {
+    constructor(protected props: any) {
+        super("div", props, {"class": `page page-error d-flex flex-column justify-center align-center ${props.class ?? ''}`});
+    }
 
-function render(query: string, block: string) {
-    const root = document.querySelector(query);
-    if (root) {
-        root.innerHTML = block;
-        return root;
+    render() {
+        return (new Templator('')).compile({});
+    }
+
+    async componentDidRender() {
+        await (() => {
+            const block = (new Templator(template)).compile(data500)
+            this.element.innerHTML = block;
+        })()
     }
 }
-
-const generatedTemplate = (new Templator(template)).compile(data500)
-render('.page', generatedTemplate)

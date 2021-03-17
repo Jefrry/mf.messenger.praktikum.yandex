@@ -168,5 +168,11 @@ class Block {
     toggleVisibility(): void {
         this.getContent().classList.toggle('d-none')
     }
+
+    remove(): void {
+        const block = this.getContent()
+
+        block.parentNode?.removeChild(block)
+    }
 }
 export { Block }
