@@ -1,23 +1,10 @@
-const profileInfoData = {
-    items: [{
-        name: 'Почта',
-        value: 'mymail@yandex.ru'
-    },{
-        name: 'Логин',
-        value: 'My login'
-    },{
-        name: 'Имя',
-        value: 'Иван'
-    },{
-        name: 'Фамилия',
-        value: 'Иванов'
-    },{
-        name: 'Имя в чате',
-        value: 'Chat Name'
-    },{
-        name: 'Телефон',
-        value: '88005553535'
-    }]
+enum profileInfoDataEnum {
+    email = 'Почта',
+    login = 'Логин',
+    first_name = 'Имя',
+    second_name = 'Фамилия',
+    display_name = 'Имя в чате',
+    phone = 'Телефон'
 }
 const modalData = {
     content: `<h3 class="title">Загрузите файл</h3>
@@ -27,4 +14,4 @@ const modalData = {
                 <button class="button primary">Поменять</button>`
 }
 
-export {profileInfoData, modalData}
+export {modalData, profileInfoDataEnum}

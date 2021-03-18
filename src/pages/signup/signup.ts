@@ -5,8 +5,11 @@ import { IInputCompProps } from '../../components/input/input.type.js'
 import { Block } from '../../components/block/block.js'
 import { Templator } from '../../services/templator.js'
 import { template } from './signup.tmpl.js'
+import { authController, ISignupData } from '../../controllers/auth/index.js'
+import { router } from '../../services/router/router.js'
 
 export default class PageSignup extends Block {
+    inputList: InputComp[]
     constructor(protected props: any) {
         super("div", props, {"class": `page page-signup d-flex flex-column justify-center align-center ${props.class ?? ''}`});
     }
@@ -28,7 +31,7 @@ export default class PageSignup extends Block {
         const myForm = document.querySelector('form')
         const buttonsContainer = document.querySelector('.buttons')
         
-        let inputList: InputComp[] = []
+        this.inputList = []
         
         const inputsData: IInputCompProps[] = [{
             type: 'email',
@@ -84,7 +87,7 @@ export default class PageSignup extends Block {
             name: 'password_again',
             validation: {
                 fn: (val: string): boolean => {
-                    const pass: InputComp | undefined = inputList.find((x) => x.name === 'password')
+                    const pass: InputComp | undefined = this.inputList.find((x) => x.name === 'password')
                     if (pass) return validationPassword(val) && pass.value === val
                     return false
                 },
@@ -95,29 +98,13 @@ export default class PageSignup extends Block {
             text: 'Зарегистрироваться',
             class: 'primary',
             events: {
-                click: () => {
-                    let data: {[key: string]: string} = {}
-        
-                    for (let i = 0; i < inputList.length; i++) {
-                        const item = inputList[i];
-        
-                        if (!item.isValid()) {
-                            throw Error('Валидация не пройдена')
-                        }
-        
-                        if (item.name) {
-                            data[item.name] = <string>item.value
-                        }
-                    }
-        
-                    console.log(data);
-                }
+                click: this.signup.bind(this)
             }
         }
         
         inputsData.forEach((x) => {
             const el = new InputComp(x)
-            inputList.push(el)
+            this.inputList.push(el)
             if (myForm) {
                 myForm.appendChild(el.getContent())
             }
@@ -125,5 +112,35 @@ export default class PageSignup extends Block {
         if (buttonsContainer) {
             buttonsContainer.prepend((new ButtonComp(buttonData)).getContent())
         }
+    }
+
+    signup() {
+        let data: ISignupData = {
+            first_name: '',
+            second_name: '',
+            login: '',
+            email: '',
+            password: '',
+            phone: ''
+        }
+        
+        for (let i = 0; i < this.inputList.length; i++) {
+            const item = this.inputList[i];
+
+            if (!item.isValid()) {
+                throw Error('Валидация не пройдена')
+            }
+
+            if (item.name) {
+                data[item.name] = item.value
+            }
+        }
+
+        authController.signup(data)
+        .then(() => {
+            router.go('chat')
+        }).catch(e => {
+            console.log(e);
+        })
     }
 }

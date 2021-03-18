@@ -5,7 +5,10 @@ import { IInputCompProps } from '../../components/input/input.type.js'
 import { Block } from '../../components/block/block.js'
 import { Templator } from '../../services/templator.js'
 import { template } from './login.tmpl.js'
+import { authController, ILoginData } from '../../controllers/auth/index.js'
+import { router } from '../../services/router/router.js'
 export default class PageLogin extends Block {
+    inputList: InputComp[]
     constructor(protected props: any) {
         super("div", props, { "class": `page page-login d-flex flex-column justify-center align-center ${props.class ?? ''}` });
     }
@@ -26,7 +29,7 @@ export default class PageLogin extends Block {
         const myForm = document.querySelector('form')
         const buttonsContainer = document.querySelector('.buttons')
 
-        let inputList: InputComp[] = []
+        this.inputList = []
 
         const inputsData: IInputCompProps[] = [{
             type: 'input',
@@ -49,29 +52,13 @@ export default class PageLogin extends Block {
             text: 'Авторизоваться',
             class: 'primary',
             events: {
-                click: () => {
-                    let data: { [key: string]: string } = {}
-
-                    for (let i = 0; i < inputList.length; i++) {
-                        const item = inputList[i];
-
-                        if (!item.isValid()) {
-                            throw Error('Валидация не пройдена')
-                        }
-
-                        if (item.name) {
-                            data[item.name] = <string>item.value
-                        }
-                    }
-
-                    console.log(data);
-                }
+                click: this.login.bind(this)
             }
         }
 
         inputsData.forEach(x => {
             const el = new InputComp(x)
-            inputList.push(el)
+            this.inputList.push(el)
             if (myForm) {
                 myForm.appendChild(el.getContent())
             }
@@ -79,5 +66,32 @@ export default class PageLogin extends Block {
         if (buttonsContainer) {
             buttonsContainer.prepend((new ButtonComp(buttonData)).getContent())
         }
+    }
+
+    login() {
+        let data: ILoginData = {
+            login: '',
+            password: ''
+        }
+
+        for (let i = 0; i < this.inputList.length; i++) {
+            const item = this.inputList[i];
+
+            if (!item.isValid()) {
+                throw Error('Валидация не пройдена')
+            }
+
+            if (item.name) {
+                data[item.name] = item.value
+            }
+        }
+
+        authController.login(data)
+        .then(() => {
+            router.go('chat')
+        }).catch(e => {
+            console.log(e);
+            
+        })
     }
 }

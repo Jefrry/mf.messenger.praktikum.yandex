@@ -58,7 +58,7 @@
     width: 30%;
   }
   .page-profile .profile .profile-info li::after,
-  .page-profile .profile .profile-buttons li::after {
+  .page-profile .profile .profile-buttons .profile-buttons__item::after {
     content: '';
     position: absolute;
     bottom: -8px;
@@ -66,11 +66,18 @@
     height: 1px;
     background-color: #eaeaea;
   }
-  .page-profile .profile .profile-info li:last-child:after {
+  .page-profile .profile .profile-info .profile-buttons__item:last-child:after {
     content: none;
   }
-  .page-profile .profile .profile-buttons li:last-child:after {
+  .page-profile .profile .profile-buttons .profile-buttons__item:last-child:after {
     content: none;
+  }
+  .page-profile .profile .profile-buttons .profile-buttons__item.link,
+  .page-profile .profile .profile-buttons .profile-buttons__item.logout {
+    padding: 0;
+  }
+  .page-profile .profile .profile-buttons .profile-buttons__item.logout {
+    color: #ff0000;
   }
   .page-profile .profile .profile-info {
     font-weight: 600;
@@ -83,9 +90,6 @@
   }
   .page-profile .profile .profile-buttons .profile-buttons__item button {
     font-size: 16px;
-  }
-  .page-profile .profile .profile-buttons .profile-buttons__item button.logout {
-    color: #ff0000;
   }
   
   .modal-content.avatar {

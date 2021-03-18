@@ -61,6 +61,10 @@ class Router {
         this.history.forward()
     }
 
+    refresh() {
+        location.reload()
+    }
+
     getRoute(path: string) {
         return this.routes.find(route => route.match(path));
     }

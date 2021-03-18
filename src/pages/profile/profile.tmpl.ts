@@ -9,20 +9,12 @@ const template = `<a href="../chat/" class="back-area d-flex flex-column justify
                           <i class="fas fa-user-alt"></i>
                           <div class="avatar_hover d-flex justify-center align-center pointer">Поменять аватар</div>
                       </div>
-                      <span class="name mt-3">Name</span>
+                      <span class="name mt-3">{{name}}</span>
                   </div>
 
-                  <ul class="profile-buttons d-flex flex-column mt-10">
-                      <li class="profile-buttons__item relative d-flex mt-5 pointer">
-                          <button class="link">Изменить данные</button>
-                      </li>
-                      <li class="profile-buttons__item relative d-flex mt-5 pointer">
-                          <button class="link">Изменить пароль</button>
-                      </li>
-                      <li class="profile-buttons__item relative d-flex mt-5 pointer">
-                          <button class="logout">Выйти</button>
-                      </li>
-                  </ul>
+                  <div class="profile-buttons d-flex flex-column mt-10">
+                  
+                  </div>
                   </div>`
 
 export {template}
