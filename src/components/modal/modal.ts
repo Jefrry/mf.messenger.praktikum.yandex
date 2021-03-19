@@ -4,13 +4,12 @@ import {template} from './modal.tmpl.js'
 import { IModalCompProps } from './modal.type.js';
 class ModalComp extends Block {
     constructor(protected props: IModalCompProps) {
-        super("div", props, {class: `modal d-none ${props.class}`});
+        super("div", props, {class: `modal d-none`});
     }
 
     componentDidRender() {
         this.element.onclick = (e: Event) => {
-            e.preventDefault()
-
+            e.stopPropagation()
             let target = e.target as HTMLHtmlElement
 
             if (target.classList.contains('modal')) {
@@ -20,7 +19,7 @@ class ModalComp extends Block {
     }
 
     render() {
-        return (new Templator(template)).compile(this.props);
+        return (new Templator(template)).compile({});
     }
 }
 

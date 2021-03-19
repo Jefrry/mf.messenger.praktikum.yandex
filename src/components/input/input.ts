@@ -34,6 +34,13 @@ class InputComp extends Block {
   get value(): string | undefined {
     return this._inputEl?.value
   }
+
+  setValue(str: string): void {
+    if (this._inputEl) {
+      this._inputEl.value = str
+    }
+  }
+
   get name(): string | undefined {
     return this._inputEl?.name
   }

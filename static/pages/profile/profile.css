@@ -29,6 +29,10 @@
     background-color: #efefef;
     color: #999;
     font-size: 35px;
+    overflow: hidden;
+  }
+  .page-profile .profile .profile-avatar .avatar img {
+    width: 100%;
   }
   .page-profile .profile .profile-avatar .avatar .avatar_hover {
     position: absolute;
@@ -54,7 +58,8 @@
     font-weight: 600;
   }
   .page-profile .profile .profile-info,
-  .page-profile .profile .profile-buttons {
+  .page-profile .profile .profile-buttons,
+  .page-profile .profile .field {
     width: 30%;
   }
   .page-profile .profile .profile-info li::after,

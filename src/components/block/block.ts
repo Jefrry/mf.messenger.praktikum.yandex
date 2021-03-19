@@ -131,9 +131,8 @@ class Block {
             this._element.innerHTML = block
 
             this._addEvents()
-
-            this.eventBus.emit(this.EVENTS.FLOW_CDR)
         }
+        this.eventBus.emit(this.EVENTS.FLOW_CDR)
     }
 
     // Может переопределять пользователь, необязательно трогать
