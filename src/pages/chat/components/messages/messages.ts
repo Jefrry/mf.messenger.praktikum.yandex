@@ -6,7 +6,7 @@ import { ModalComp } from "../../../../components/modal/modal.js";
 import { PopupComp } from "../../../../components/popup/popup.js";
 import { userController } from "../../../../controllers/user/user.js";
 import { Templator } from "../../../../modules/templator.js";
-import { clipPopupData, messagesData, sendInputData } from "../../mock.js";
+import { clipPopupData, messagesData, sendInputData } from "../../mocks.js";
 import { ModalContent } from "../modalContent/modalContent.js";
 import { template } from "./messages.tmpl.js";
 

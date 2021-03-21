@@ -66,7 +66,7 @@ export default class PageProfile extends Block {
         return (new Templator(template)).compile(this.userInfo);
     }
 
-    async componentDidRender() {
+    componentDidRender() {
         this._initPage()
     }
 

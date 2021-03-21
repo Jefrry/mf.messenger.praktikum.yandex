@@ -18,7 +18,7 @@ export default class PageSignup extends Block {
         return (new Templator(template)).compile({})
     }
 
-    async componentDidRender() {
+    componentDidRender() {
         this._initPage()
     }
 

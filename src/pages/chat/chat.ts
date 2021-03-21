@@ -1,6 +1,6 @@
 import { ChatListItemComp } from './components/chatListItem/chatListItem.js'
 import { InputComp } from '../../components/input/input.js'
-import { searchInputData} from './mock.js'
+import { searchInputData} from './mocks.js'
 import { Block } from '../../components/block/block.js'
 import { Templator } from '../../modules/templator.js'
 import { template } from './chat.tmpl.js'
@@ -20,7 +20,7 @@ export default class PageChat extends Block {
         return (new Templator(template)).compile({});
     }
 
-    async componentDidRender() {
+    componentDidRender() {
         this._initPage()
     }
 
