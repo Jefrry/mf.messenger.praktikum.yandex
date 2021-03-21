@@ -13,13 +13,13 @@ class ModalContent extends Block {
     super("div", props, { class: 'modal-content avatar d-flex flex-column justify-space-between align-center pa-6' });
   }
 
-  async componentDidRender() {
-    await (() => {
-      const block = (new Templator(template)).compile({})
-      this.element.innerHTML = block
-    })()
+  render() {
+    return (new Templator(template)).compile({})
+  }
 
-    this._initComp()
+  async componentDidRender() {
+    await this._initComp()
+    this.contentFilled()
   }
 
   private _initComp() {
@@ -47,6 +47,7 @@ class ModalContent extends Block {
       }
     }).getContent()))
   }
+  contentFilled() {}
 }
 
 export { ModalContent }

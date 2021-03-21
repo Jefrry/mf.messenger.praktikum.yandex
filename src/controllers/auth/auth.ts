@@ -27,7 +27,7 @@ class Controller {
 
   getUserInfo() {
     return this.http.get('auth/user', {})
-      .then((res: XMLHttpRequest) => JSON.parse(res.response))
+      .then((res: XMLHttpRequest): IUserInfoData => JSON.parse(res.response))
       .catch((e: XMLHttpRequest) => JSON.parse(e.responseText).reason)
   }
 }

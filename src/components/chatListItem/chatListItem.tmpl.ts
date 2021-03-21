@@ -2,7 +2,7 @@ const template: string = `<div class="avatar d-flex justify-center align-center 
                             {{avatar}}
                         </div>
                         <div class="text d-flex flex-column mr-2">
-                            <span class="name">{{name}}</span>
+                            <span class="name">{{title}}</span>
                             <span class="message">{{message}}</span>
                         </div>
                         <div class="info d-flex flex-column justify-space-between align-center">

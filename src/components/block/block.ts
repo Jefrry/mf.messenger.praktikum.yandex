@@ -63,8 +63,8 @@ class Block {
         this.eventBus.emit(this.EVENTS.FLOW_CDM);
     }
 
-    private _componentDidMount() {
-        this.componentDidMount();
+    private async _componentDidMount() {
+        await this.componentDidMount();
         this.eventBus.emit(this.EVENTS.FLOW_RENDER);
     }
 
@@ -95,7 +95,9 @@ class Block {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
-                this.element.addEventListener(eventName, events[eventName]);
+                this.element.addEventListener(eventName, () => {
+                    events[eventName](this)
+                });
             });
         }
     }
@@ -103,7 +105,9 @@ class Block {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
-                this.element.removeEventListener(eventName, events[eventName]);
+                this.element.removeEventListener(eventName, () => {
+                    events[eventName](this)
+                });
             });
         }
     }
@@ -121,8 +125,11 @@ class Block {
         return this._element
     }
 
-    private _render() {
-        const block = this.render();
+    private async _render() {
+        let block
+        await (() => {
+            block = this.render();
+        })()
         
         if (typeof block === "string") {
             

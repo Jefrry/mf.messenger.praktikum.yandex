@@ -8,13 +8,6 @@ export default class Page500 extends Block {
     }
 
     render() {
-        return (new Templator('')).compile({});
-    }
-
-    async componentDidRender() {
-        await (() => {
-            const block = (new Templator(template)).compile(data500)
-            this.element.innerHTML = block;
-        })()
+        return (new Templator(template)).compile(data500);
     }
 }

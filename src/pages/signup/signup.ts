@@ -15,14 +15,10 @@ export default class PageSignup extends Block {
     }
 
     render() {
-        return (new Templator('')).compile({});
+        return (new Templator(template)).compile({})
     }
 
     async componentDidRender() {
-        await (() => {
-            const block = (new Templator(template)).compile({})
-            this.element.innerHTML = block;
-        })()
         this._initPage()
     }
 

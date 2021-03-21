@@ -1,2 +1,2 @@
-import { userController, IChangePassword, IChangeUserInfo } from "./user.js";
-export { userController, IChangePassword, IChangeUserInfo }
+import { userController, IChangePassword, IChangeUserInfo, IAddRemoveUserToChat } from "./user.js";
+export { userController, IChangePassword, IChangeUserInfo, IAddRemoveUserToChat }

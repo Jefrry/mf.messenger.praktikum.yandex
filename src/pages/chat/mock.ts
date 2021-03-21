@@ -1,42 +1,9 @@
-const chatListData = [{
-    avatar: '<i class="fas fa-user-alt"></i>',
-    name: 'My name',
-    message: 'This is my message to you',
-    date: '04:20',
-    events: {
-        click: () => {
-            document.getElementsByClassName('messages_empty')[0].classList.add('d-none')
-            document.getElementsByClassName('messages-chat')[0].classList.remove('d-none')
-        }
-    }
-},{
-    avatar: '<i class="fas fa-user-alt"></i>',
-    name: 'Another user',
-    message: 'Another message',
-    date: '16:20',
-    notification: '2',
-    events: {
-        click: () => {
-            document.getElementsByClassName('messages_empty')[0].classList.add('d-none')
-            document.getElementsByClassName('messages-chat')[0].classList.remove('d-none')
-        }
-    }
-}]
 const searchInputData = {
     type: 'input',
     class: 'field_gray field_center',
     placeholder: 'Поиск',
     name: 'search',
     icon: '<i class="fas fa-search"></i>'
-}
-const userInfoPopupData = {
-    items: [{
-        icon: '<i class="fas fa-plus"></i>',
-        text: 'Добавить пользователя'
-    }, {
-        icon: '<i class="fas fa-times"></i>',
-        text: 'Удалить пользователя'
-    }]
 }
 const clipPopupData = {
     items: [{
@@ -71,4 +38,4 @@ const messagesData = [{
            <span>00:34</span>`
 }]
 
-export {chatListData,searchInputData,userInfoPopupData,clipPopupData,sendInputData,messagesData}
+export {searchInputData,clipPopupData,sendInputData,messagesData}

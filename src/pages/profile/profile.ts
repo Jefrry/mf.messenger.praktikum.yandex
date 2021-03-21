@@ -57,42 +57,23 @@ export default class PageProfile extends Block {
         this.buttons = []
     }
 
+    async componentDidMount() {
+        await this.getUserInfo()
+        this.userInfo.avatar = this.userInfo.avatar === '' ? '<i class="fas fa-user-alt"></i>' : `<img src="https://ya-praktikum.tech/${this.userInfo.avatar}"/>`
+    }
+
     render() {
-        return (new Templator('')).compile({});
+        return (new Templator(template)).compile(this.userInfo);
     }
 
     async componentDidRender() {
-        await this.getUserInfo()
-        this.userInfo.avatar = this.userInfo.avatar === '' ? '<i class="fas fa-user-alt"></i>' : `<img src="https://ya-praktikum.tech/${this.userInfo.avatar}"/>`
-        await (() => {
-            const block = (new Templator(template)).compile(this.userInfo)
-            this.element.innerHTML = block;
-        })()
         this._initPage()
     }
 
     private _initPage() {
         this.setButtons()
         this.setUserInfo()
-
-        const pageContainer = document.querySelector('.page')
-        const avatarHover = document.querySelector('.avatar_hover')
-
-        // TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
-        const modalContent = new ModalContent({})
-        const modal = (new ModalComp({ content: '' }))
-        modal.element.appendChild(modalContent.getContent())
-
-        if (pageContainer) {
-            pageContainer.prepend(modal.getContent())
-        }
-
-        if (avatarHover) {
-            avatarHover.addEventListener('click', function (e) {
-                e.preventDefault()
-                modal.show()
-            })
-        }
+        this.setModal()
     }
 
     async getUserInfo() {
@@ -104,6 +85,29 @@ export default class PageProfile extends Block {
                 console.log(e);
             })
 
+    }
+
+    setModal() {
+        const pageContainer = document.querySelector('.page')
+        const avatarHover = document.querySelector('.avatar_hover')
+
+        // TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
+        const modalContent = new ModalContent({})
+        const modal = new ModalComp({ content: '' })
+        modalContent.contentFilled = () => {
+            modal.element.appendChild(modalContent.element)
+
+            if (pageContainer) {
+                pageContainer.prepend(modal.getContent())
+            }
+        }
+        
+        if (avatarHover) {
+            avatarHover.addEventListener('click', function (e) {
+                e.preventDefault()
+                modal.show()
+            })
+        }
     }
 
     setUserInfo() {

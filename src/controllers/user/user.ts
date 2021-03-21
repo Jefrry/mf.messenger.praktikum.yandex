@@ -1,5 +1,5 @@
 import { HTTPTransport } from "../../services/httpTransport/httpTransport.js"
-import { IChangePassword, IChangeUserInfo } from "./user.type.js"
+import { IAddRemoveUserToChat, IChangePassword, IChangeUserInfo } from "./user.type.js"
 
 class Controller {
   private readonly http: HTTPTransport
@@ -25,7 +25,19 @@ class Controller {
       .then(() => null)
       .catch((e: XMLHttpRequest) => JSON.parse(e.responseText).reason)
   }
+
+  removeUserFromChat(data: IAddRemoveUserToChat) {
+    return this.http.delete('chats/users', { data: JSON.stringify(data), headers: { name: "Content-type", value: "application/json" } })
+      .then(() => null)
+      .catch((e: XMLHttpRequest) => JSON.parse(e.responseText).reason)
+  }
+
+  addUserToChat(data: IAddRemoveUserToChat) {
+    return this.http.put('chats/users', { data: JSON.stringify(data), headers: { name: "Content-type", value: "application/json" } })
+      .then(() => null)
+      .catch((e: XMLHttpRequest) => JSON.parse(e.responseText).reason)
+  }
 }
 
 const userController = new Controller()
-export { userController, IChangePassword, IChangeUserInfo, }
+export { userController, IChangePassword, IChangeUserInfo, IAddRemoveUserToChat }

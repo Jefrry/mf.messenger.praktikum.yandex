@@ -10,4 +10,10 @@ interface IChangeUserInfo {
   email: string,
   phone: string
 }
-export { IChangePassword, IChangeUserInfo }
+
+interface IAddRemoveUserToChat {
+  users: number[],
+  chatId: number
+}
+
+export { IChangePassword, IChangeUserInfo,IAddRemoveUserToChat }
