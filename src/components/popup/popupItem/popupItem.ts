@@ -1,7 +1,7 @@
-import {Block} from '../../block.js'
-import {Templator} from "../../../services/templator.js";
+import {Block} from '../../block/block.js'
+import {Templator} from "../../../modules/templator.js";
 import {template} from './popupItem.tmpl.js'
-import { IPopupCompPropsItem } from '../../../types/index.js';
+import { IPopupCompPropsItem } from '../popup.type.js';
 class PopupItemComp extends Block {
     constructor(protected props: IPopupCompPropsItem) {
         super("li", props, {"class": `popup__item ${props.class ?? ''}`});

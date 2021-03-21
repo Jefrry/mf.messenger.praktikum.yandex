@@ -1,8 +1,8 @@
-import {Block} from '../block.js'
+import {Block} from '../block/block.js'
 import {ValidationErrorComp} from '../validationError/validationError.js'
-import {Templator} from "../../services/templator.js";
+import {Templator} from "../../modules/templator.js";
 import {template} from './input.tmpl.js'
-import { IInputCompProps } from '../../types/index.js';
+import { IInputCompProps } from './input.type.js';
 
 class InputComp extends Block {
   private _inputEl: HTMLInputElement | null;
@@ -34,6 +34,13 @@ class InputComp extends Block {
   get value(): string | undefined {
     return this._inputEl?.value
   }
+
+  setValue(str: string): void {
+    if (this._inputEl) {
+      this._inputEl.value = str
+    }
+  }
+
   get name(): string | undefined {
     return this._inputEl?.name
   }

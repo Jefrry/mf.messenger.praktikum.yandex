@@ -1,61 +1,93 @@
-import {ChatListItemComp} from '../../components/chatListItem/chatListItem.js'
-import {InputComp} from '../../components/input/input.js'
-import {PopupComp} from '../../components/popup/popup.js'
-import {MessageComp} from '../../components/message/message.js'
-import { chatListData, clipPopupData, messagesData, searchInputData, sendInputData, userInfoPopupData } from './mock.js'
+import { ChatListItemComp } from './components/chatListItem/chatListItem.js'
+import { InputComp } from '../../components/input/input.js'
+import { searchInputData} from './mocks.js'
+import { Block } from '../../components/block/block.js'
+import { Templator } from '../../modules/templator.js'
+import { template } from './chat.tmpl.js'
+import { chatsController, IChatsListData } from '../../controllers/chats/index.js'
+import { MessagesComp } from './components/messages/messages.js'
+export default class PageChat extends Block {
+    chatsListData: IChatsListData[]
+    chatsListComp: ChatListItemComp<IChatsListData>[]
+    chatsPage: HTMLElement | null
+    chatsListContainer: HTMLElement | null | undefined
+    shownMessages: MessagesComp<{ id: number; title: string }>
+    constructor(protected props: any) {
+        super("div", props, { "class": `page page-chat d-flex ${props.class ?? ''}` });
+    }
 
-const chatPage = document.querySelector('.page-chat')
+    render() {
+        return (new Templator(template)).compile({});
+    }
 
-let chatsContainer: HTMLElement | null = null
-let searchContainer: HTMLElement | null = null
-let userInfoPopupContainer: HTMLElement | null = null
-let clipPopupContainer: HTMLElement | null = null
-let userInfoButton: HTMLElement | null = null
-let clipButton: HTMLElement | null = null
-let messagesContainer: HTMLElement | null = null
-if (chatPage) {
-    chatsContainer = chatPage.querySelector('.chats-list')
-    searchContainer = chatPage.querySelector('.chats-search')
-    userInfoPopupContainer = chatPage.querySelector('.messages-header')
-    clipPopupContainer = chatPage.querySelector('.messages-controls')
-    userInfoButton = chatPage.querySelector('#user-info')
-    clipButton = chatPage.querySelector('#clip')
-    messagesContainer = chatPage.querySelector('.messages-area')
-}
+    componentDidRender() {
+        this._initPage()
+    }
 
+    private _initPage() {
+        this.getChatsList()
 
-const chatList = []
-const messagesList = []
-const searchInput = new InputComp(searchInputData)
-const userInfoPopup = new PopupComp(userInfoPopupData)
-const clipPopup = new PopupComp(clipPopupData)
-const sendInput = new InputComp(sendInputData)
+        this.chatsPage = document.querySelector('.page-chat')
 
-
-if (chatListData) {
-    chatListData.forEach(x => {
-        const el = new ChatListItemComp(x)
-        chatList.push(el)
-        if (chatsContainer) {
-            chatsContainer.appendChild(el.getContent())
+        let searchContainer: HTMLElement | null = null
+        if (this.chatsPage) {
+            searchContainer = this.chatsPage.querySelector('.chats-search')
         }
-    })
-}
-if (messagesData) {
-    messagesData.forEach(x => {
-        const el = new MessageComp(x)
-        messagesList.push(el)
-        if (messagesContainer) {
-            messagesContainer.appendChild(el.getContent())
-        }
-    })
-}
-if (searchContainer) searchContainer.appendChild(searchInput.getContent())
-if (userInfoPopupContainer) userInfoPopupContainer.appendChild(userInfoPopup.getContent())
-if (clipPopupContainer) clipPopupContainer.appendChild(clipPopup.getContent())
+        const searchInput = new InputComp(searchInputData)
+        if (searchContainer) searchContainer.appendChild(searchInput.getContent())
+    }
 
-if (userInfoButton) userInfoButton.onclick = () => userInfoPopup.toggleVisibility()
-if (clipButton) {
-    clipButton.after(sendInput.getContent())
-    clipButton.onclick = () => clipPopup.toggleVisibility()
+    getChatsList() {
+        chatsController.getChatList()
+            .then((data: IChatsListData[]) => {
+                this.chatsListData = data
+                // дополняю немного данные, так как на данном спринте с сообщениями не работаю
+                this.chatsListData.forEach(c => {
+                    c.message = 'Ths is message example'
+                    c.date = '20:33'
+                })
+                this.chatsListData[0].notification = 3
+                this.setChatsList()
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+    setChatsList() {
+        this.chatsListComp = []
+        this.chatsListContainer = this.chatsPage?.querySelector('.chats-list')
+        this.chatsListData.forEach(x => {
+            const el = new ChatListItemComp({
+                ...x,
+                events: {
+                    click: this.chatClick.bind(this)
+                }
+            })
+            this.chatsListComp.push(el)
+            if (this.chatsListContainer) {
+                this.chatsListContainer.appendChild(el.getContent())
+            }
+        })
+    }
+
+    chatClick(that: ChatListItemComp<IChatsListData>) {
+        this.removeChat()
+        this.shownMessages = new MessagesComp({ id: that.id, title: that.title })
+        this.setChat()
+    }
+
+    setChat() {
+        this.chatsPage?.appendChild(this.shownMessages.element)
+    }
+
+    removeChat() {
+        const emptyMessages = document.querySelector('.messages_empty')
+        if (this.shownMessages) {
+            this.shownMessages.remove()
+        }
+        if (emptyMessages) {
+            emptyMessages.remove()
+        }
+    }
 }

@@ -4,21 +4,43 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@babel/register": "^7.12.1",
+    "@types/chai": "^4.2.14",
+    "@types/express": "^4.17.11",
+    "@types/mocha": "^5.2.7",
+    "autoprefixer": "^10.2.5",
+    "chai": "^4.2.0",
+    "concurrently": "^6.0.0",
+    "express": "^4.17.1",
+    "mocha": "latest",
+    "postcss-calc": "^8.0.0",
+    "postcss-import": "^14.0.0",
+    "wait-on": "^5.2.1"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">= 12.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js",
-    "ts-watch": "tsc -w"
+    "ts-watch": "tsc -w",
+    "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
+    "wait-ts": "wait-on server.js && npm run start",
+    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run wait-ts\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jefrry/yandex-praktikum-chat.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "postcss-for": "^2.1.1"
+  }
 }
