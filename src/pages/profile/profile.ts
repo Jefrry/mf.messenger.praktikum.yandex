@@ -1,18 +1,18 @@
-import { ProfileInfoComp } from '../../components/profileInfo/profileInfo.js'
+import { ProfileInfoComp } from './components/profileInfo/profileInfo.js'
 import { ModalComp } from '../../components/modal/modal.js'
 import { Block } from '../../components/block/block.js'
-import { Templator } from '../../services/templator.js';
+import { Templator } from '../../modules/templator.js';
 import { template } from './profile.tmpl.js';
 import { authController, IUserInfoData } from '../../controllers/auth/index.js';
-import { IProfileInfoCompProps } from '../../components/profileInfo/profileInfo.type.js';
+import { IProfileInfoCompProps } from './components/profileInfo/profileInfo.type.js';
 import { ButtonComp } from '../../components/button/button.js';
 import { IButtonCompProps } from '../../components/button/button.type.js';
-import { router } from '../../services/router/router.js';
+import { router } from '../../modules/router/router.js';
 import { IInputCompProps } from '../../components/input/input.type.js';
 import { validationEmpty, validationPassword, validationPhone } from '../../utils/validator.js';
 import { InputComp } from '../../components/input/input.js';
 import { IChangePassword, IChangeUserInfo, userController } from '../../controllers/user/index.js';
-import { ModalContent } from './components/modalContent.js';
+import { ModalContent } from './components/modalContent/modalContent.js';
 
 enum profileInfoDataEnum {
     email = 'Почта',

@@ -1,5 +1,5 @@
 import {Block} from '../block/block.js'
-import {Templator} from "../../services/templator.js";
+import {Templator} from "../../modules/templator.js";
 import {template} from './button.tmpl.js'
 import { IButtonCompProps } from './button.type.js';
 class ButtonComp extends Block {

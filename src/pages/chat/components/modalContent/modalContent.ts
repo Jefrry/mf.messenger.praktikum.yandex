@@ -1,7 +1,7 @@
 import { Block } from "../../../../components/block/block.js";
 import { ButtonComp } from "../../../../components/button/button.js";
 import { InputComp } from "../../../../components/input/input.js";
-import { Templator } from "../../../../services/templator.js";
+import { Templator } from "../../../../modules/templator.js";
 import { validationEmpty, validationNumber } from "../../../../utils/validator.js";
 
 

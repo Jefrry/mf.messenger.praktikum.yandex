@@ -1,4 +1,4 @@
-import { HTTPTransport } from "../../services/httpTransport/httpTransport.js"
+import { HTTPTransport } from "../../modules/httpTransport/httpTransport.js"
 import { ILoginData, ISignupData, IUserInfoData } from "./auth.type.js"
 
 class Controller {

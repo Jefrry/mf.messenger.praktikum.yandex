@@ -1,4 +1,4 @@
-import {Block} from '../block/block.js'
+import {Block} from '../../../../components/block/block.js'
 import { IProfileInfoCompProps, IProfileInfoCompPropsItem } from './profileInfo.type.js';
 import { ProfileInfoItemComp } from './profileInfoItem/profileInfoItem.js';
 class ProfileInfoComp extends Block {

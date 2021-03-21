@@ -1,4 +1,4 @@
-import { IBlockCompProps } from "../block/block.type";
+import { IBlockCompProps } from "../../../../components/block/block.type";
 
 interface IProfileInfoCompProps extends IBlockCompProps {
   items: IProfileInfoCompPropsItem[]

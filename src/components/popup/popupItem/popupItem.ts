@@ -1,5 +1,5 @@
 import {Block} from '../../block/block.js'
-import {Templator} from "../../../services/templator.js";
+import {Templator} from "../../../modules/templator.js";
 import {template} from './popupItem.tmpl.js'
 import { IPopupCompPropsItem } from '../popup.type.js';
 class PopupItemComp extends Block {

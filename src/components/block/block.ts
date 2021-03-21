@@ -1,4 +1,4 @@
-import {EventBus} from '../../services/eventBus.js'
+import {EventBus} from '../../modules/eventBus.js'
 import { IBlockCompProps } from './block.type.js';
 
 class Block {

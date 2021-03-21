@@ -1,5 +1,5 @@
-import {Block} from '../../block/block.js'
-import {Templator} from '../../../services/templator.js'
+import {Block} from '../../../../../components/block/block.js'
+import {Templator} from '../../../../../modules/templator.js'
 import {template} from './profileInfoItem.tmpl.js'
 import { IProfileInfoCompPropsItem } from '../profileInfo.type.js';
 class ProfileInfoItemComp extends Block {

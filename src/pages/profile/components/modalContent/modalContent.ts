@@ -1,8 +1,8 @@
-import { Block } from "../../../components/block/block.js";
-import { ButtonComp } from "../../../components/button/button.js";
-import { userController } from "../../../controllers/user/user.js";
-import { router } from "../../../services/router/router.js";
-import { Templator } from "../../../services/templator.js";
+import { Block } from "../../../../components/block/block.js";
+import { ButtonComp } from "../../../../components/button/button.js";
+import { userController } from "../../../../controllers/user/user.js";
+import { router } from "../../../../modules/router/router.js";
+import { Templator } from "../../../../modules/templator.js";
 import { template } from "./modalContent.tmpl.js";
 
 class ModalContent extends Block {

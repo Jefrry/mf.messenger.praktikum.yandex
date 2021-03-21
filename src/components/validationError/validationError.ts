@@ -1,5 +1,5 @@
 import {Block} from '../block/block.js'
-import {Templator} from "../../services/templator.js"
+import {Templator} from "../../modules/templator.js"
 import {template} from './validationError.tmpl.js'
 import { IValidationErrorCompProps } from './validationError.type.js';
 class ValidationErrorComp extends Block {

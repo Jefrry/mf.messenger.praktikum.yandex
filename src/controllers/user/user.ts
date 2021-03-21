@@ -1,4 +1,4 @@
-import { HTTPTransport } from "../../services/httpTransport/httpTransport.js"
+import { HTTPTransport } from "../../modules/httpTransport/httpTransport.js"
 import { IAddRemoveUserToChat, IChangePassword, IChangeUserInfo } from "./user.type.js"
 
 class Controller {

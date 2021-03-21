@@ -1,11 +1,11 @@
 import { Block } from "../../../../components/block/block.js";
 import { IBlockCompProps } from "../../../../components/block/block.type.js";
 import { InputComp } from "../../../../components/input/input.js";
-import { MessageComp } from "../../../../components/message/message.js";
+import { MessageComp } from "../message/message.js";
 import { ModalComp } from "../../../../components/modal/modal.js";
 import { PopupComp } from "../../../../components/popup/popup.js";
 import { userController } from "../../../../controllers/user/user.js";
-import { Templator } from "../../../../services/templator.js";
+import { Templator } from "../../../../modules/templator.js";
 import { clipPopupData, messagesData, sendInputData } from "../../mock.js";
 import { ModalContent } from "../modalContent/modalContent.js";
 import { template } from "./messages.tmpl.js";

@@ -1,7 +1,7 @@
-import { Block } from '../block/block.js'
-import { Templator } from "../../services/templator.js";
+import { Block } from '../../../../components/block/block.js'
+import { Templator } from "../../../../modules/templator.js";
 import { template } from './chatListItem.tmpl.js'
-import { IBlockCompProps } from '../block/block.type.js';
+import { IBlockCompProps } from '../../../../components/block/block.type.js';
 class ChatListItemComp<T extends IBlockCompProps> extends Block {
     id: number;
     title: string;

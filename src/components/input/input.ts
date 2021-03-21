@@ -1,6 +1,6 @@
 import {Block} from '../block/block.js'
 import {ValidationErrorComp} from '../validationError/validationError.js'
-import {Templator} from "../../services/templator.js";
+import {Templator} from "../../modules/templator.js";
 import {template} from './input.tmpl.js'
 import { IInputCompProps } from './input.type.js';
 

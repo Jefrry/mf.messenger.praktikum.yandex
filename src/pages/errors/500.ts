@@ -1,5 +1,5 @@
 import {template} from './errors.tmpl.js'
-import {Templator} from '../../services/templator.js'
+import {Templator} from '../../modules/templator.js'
 import { data500 } from './mocks.js';
 import { Block } from '../../components/block/block.js';
 export default class Page500 extends Block {

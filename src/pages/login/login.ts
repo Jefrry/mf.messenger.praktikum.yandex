@@ -3,10 +3,10 @@ import { ButtonComp } from '../../components/button/button.js'
 import { validationPassword, validationEmpty } from '../../utils/validator.js'
 import { IInputCompProps } from '../../components/input/input.type.js'
 import { Block } from '../../components/block/block.js'
-import { Templator } from '../../services/templator.js'
+import { Templator } from '../../modules/templator.js'
 import { template } from './login.tmpl.js'
 import { authController, ILoginData } from '../../controllers/auth/index.js'
-import { router } from '../../services/router/router.js'
+import { router } from '../../modules/router/router.js'
 export default class PageLogin extends Block {
     inputList: InputComp[]
     constructor(protected props: any) {
