@@ -29,16 +29,17 @@ class Router {
     }
 
     start() {
-        // Здесь e должен быть типа PopStateEvent, но в таком случае ругается на e.currentTarget.location.pathname
-        // почему?
-        window.onpopstate = (e: any) => this._onRoute(e.currentTarget.location.hash.replace('#/', ''))
-
+        window.onpopstate = () => this._onRoute(window.location.hash.replace('#/', ''))
         this._onRoute(window.location.hash.replace('#/', ''))
     }
 
     private _onRoute(path: string) {
         const route = this.getRoute(path);
-        if (!route) return this.go('404')
+
+        if (!route) {
+            this.go('404')
+            return
+        }
 
         if (this._currentRoute) {
             this._currentRoute.leave();

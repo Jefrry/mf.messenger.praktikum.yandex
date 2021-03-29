@@ -13,9 +13,6 @@ interface IRequestOptions {
   data?: any,
   timeout?: number
 }
-
-// я не нашел как сделать Required<IRequestOptions> для определенного свойства
-// гугл сказал сделать так
 interface IRequestOptionsWithMethod extends IRequestOptions {
   method: METHODS
 }

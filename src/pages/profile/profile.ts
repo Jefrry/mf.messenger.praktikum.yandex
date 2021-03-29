@@ -205,17 +205,17 @@ export default class PageProfile extends Block {
             phone: ''
         }
 
-        for (let i = 0; i < this.changeUserInfoInputList.length; i++) {
-            const item = this.changeUserInfoInputList[i];
-
-            if (!item.isValid()) {
+        this.changeUserInfoInputList.forEach(item => {
+            const { isValid, name, value } = item
+            
+            if (!isValid()) {
                 throw Error('Валидация не пройдена')
             }
 
-            if (item.name && item.name in data) {
-                data[item.name] = item.value
+            if (name && name in data) {
+                data[name] = value
             }
-        }
+        })
 
         userController.changeUserInfo(data)
             .then(() => {
@@ -288,17 +288,17 @@ export default class PageProfile extends Block {
             newPassword: ''
         }
 
-        for (let i = 0; i < this.changePasswordInputList.length; i++) {
-            const item = this.changePasswordInputList[i];
-
-            if (!item.isValid()) {
+        this.changePasswordInputList.forEach(item => {
+            const { isValid, name, value } = item
+            
+            if (!isValid()) {
                 throw Error('Валидация не пройдена')
             }
 
-            if (item.name && item.name in data) {
-                data[item.name] = item.value
+            if (name && name in data) {
+                data[name] = value
             }
-        }
+        })
 
         userController.changePassword(data)
             .then(() => {

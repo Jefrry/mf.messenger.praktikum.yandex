@@ -3,7 +3,7 @@ function pathToObject(obj: { [key: string]: any }, path: string, defaultValue?: 
     if (keys.length < 1 || path === '') throw Error('Путь должен быть строкой и содержать символ "." разделения');
 
     let result = obj;
-    for (let key of keys) {
+    for (const key of keys) {
         result = result[key];
 
         if (!result) {

@@ -120,17 +120,17 @@ export default class PageSignup extends Block {
             phone: ''
         }
         
-        for (let i = 0; i < this.inputList.length; i++) {
-            const item = this.inputList[i];
-
-            if (!item.isValid()) {
+        this.inputList.forEach(item => {
+            const { isValid, name, value } = item
+            
+            if (!isValid()) {
                 throw Error('Валидация не пройдена')
             }
 
-            if (item.name) {
-                data[item.name] = item.value
+            if (name) {
+                data[name] = value
             }
-        }
+        })
 
         authController.signup(data)
         .then(() => {

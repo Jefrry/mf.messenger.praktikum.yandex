@@ -1,22 +1,22 @@
 import { IRequestOptions, IRequestOptionsWithMethod, METHODS } from "./httpTransport.type.js";
 
-class HTTPTransport {
+export class HTTPTransport {
     private readonly _baseUrl: string;
-    constructor() {
-        this._baseUrl = 'https://ya-praktikum.tech/api/v2/'
+    constructor(baseUrl?: string) {
+        this._baseUrl = baseUrl ? baseUrl : 'https://ya-praktikum.tech/api/v2/'
      }
     
     get = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._baseUrl}${url}${this._queryStringify(options.data)}`, { ...options, method: METHODS.GET }, options.timeout);
+        return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, { ...options, method: METHODS.GET }, options.timeout);
     };
     put = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._baseUrl}${url}`, { ...options, method: METHODS.PUT }, options.timeout)
+        return this.request(`${this._makeUrl(url)}`, { ...options, method: METHODS.PUT }, options.timeout)
     };
     post = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._baseUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout)
+        return this.request(`${this._makeUrl(url)}`, { ...options, method: METHODS.POST }, options.timeout)
     };
     delete = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._baseUrl}${url}${this._queryStringify(options.data)}`, { ...options, method: METHODS.DELETE }, options.timeout);
+        return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, { ...options, method: METHODS.DELETE }, options.timeout);
     };
 
     request = (url: string, options: IRequestOptionsWithMethod, timeout = 5000) => {
@@ -29,7 +29,7 @@ class HTTPTransport {
             xhr.withCredentials = true
             if (headers) xhr.setRequestHeader(headers.name, headers.value)
 
-            xhr.onload = () => xhr.status > 300 ? rej(xhr) : res(xhr)
+            xhr.onload = () => 200 <= xhr.status || xhr.status < 300 ? res(xhr) : rej(xhr)
 
             xhr.onabort = () => rej(xhr)
             xhr.onerror = () => rej(xhr)
@@ -43,13 +43,15 @@ class HTTPTransport {
         })
     };
 
+    private _makeUrl(url: string): string {
+        return this._baseUrl + url
+    }
+
     private _queryStringify(data: { [key: string]: string }) {
-        let result = ''
-        for (const key in data) {
-            result += `${result.length === 0 ? '?' : '&'}${key}=${data[key]}`
-        }
-        return result
+        if (!data) return ''
+
+        return Object.entries(data).reduce((res, [key, value]) => {
+            return `${res}${key}=${value}&`;
+        }, '?')
     }
 }
-
-export { HTTPTransport }
