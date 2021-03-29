@@ -8,4 +8,6 @@ interface IChatsListData {
   notification?: number
 }
 
-export { IChatsListData }
+type ICreateChatData = Pick<IChatsListData, 'title'>
+
+export { IChatsListData, ICreateChatData }

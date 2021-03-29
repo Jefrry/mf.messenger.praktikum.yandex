@@ -2338,7 +2338,7 @@ input[type=file] {
     from { transform: translateY(-45px); }
     to { transform: translateY(0px); }
    }
-.notification {
+.app-notification {
     position: absolute;
     left: 0;
     right: 0;
@@ -2354,10 +2354,10 @@ input[type=file] {
     -webkit-animation: showNotification 1s forwards;
             animation: showNotification 1s forwards
   }
-.notification.notification_error {
+.app-notification.app-notification_error {
     background-color: #ff5252;
   }
-.notification.notification_success {
+.app-notification.app-notification_success {
     background-color: #4caf50;
   }
 .page-chat .chats {

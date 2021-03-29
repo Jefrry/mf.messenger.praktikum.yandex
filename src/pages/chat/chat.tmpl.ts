@@ -3,7 +3,7 @@ const template = `<div class="chats d-flex flex-column">
                   <div class="chats-search px-2">
                       
                   </div>
-                  <ul class="chats-list d-flex flex-column mt-5">
+                  <ul class="chats-list d-flex flex-column mt-3">
                       
                   </ul>
                   </div>

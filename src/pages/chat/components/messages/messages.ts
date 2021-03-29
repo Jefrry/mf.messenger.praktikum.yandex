@@ -7,8 +7,9 @@ import { PopupComp } from "../../../../components/popup/popup.js";
 import { userController } from "../../../../controllers/user/user.js";
 import { Templator } from "../../../../modules/templator.js";
 import { clipPopupData, messagesData, sendInputData } from "../../mocks.js";
-import { ModalContent } from "../modalContent/modalContent.js";
+import { ModalContent } from "../modalContentUser/modalContentUser.js";
 import { template } from "./messages.tmpl.js";
+import { NotificationComp } from "../../../../components/notification/notification.js";
 
 class MessagesComp<T extends IBlockCompProps> extends Block {
   chatsPage: HTMLElement | null;
@@ -113,9 +114,12 @@ class MessagesComp<T extends IBlockCompProps> extends Block {
     userController.addUserToChat({
       users: [id],
       chatId: this.id
-    }).finally(() => {
-      this.modal.remove()
     })
+      .then(() => new NotificationComp({ type: 'success', text: 'Пользователь добавлен в чат' }))
+      .catch((e) => new NotificationComp({ type: 'error', text: e }))
+      .finally(() => {
+        this.modal.remove()
+      })
   }
 
   removeUserFromChat() {
@@ -128,9 +132,12 @@ class MessagesComp<T extends IBlockCompProps> extends Block {
     userController.removeUserFromChat({
       users: [id],
       chatId: this.id
-    }).finally(() => {
-      this.modal.remove()
     })
+      .then(() => new NotificationComp({ type: 'success', text: 'Пользователь удален из чата' }))
+      .catch((e) => new NotificationComp({ type: 'error', text: e }))
+      .finally(() => {
+        this.modal.remove()
+      })
   }
 }
 

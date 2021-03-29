@@ -5,7 +5,7 @@ import { INotificationProps } from "./notification.type.js";
 
 class NotificationComp extends Block {
   constructor(protected props: INotificationProps) {
-    super("div", props, { "class": `notification notification_${props.type} shadow ${props.class ?? ''}` });
+    super("div", props, { "class": `app-notification app-notification_${props.type} shadow ${props.class ?? ''}` });
   }
 
   componentDidRender() {

@@ -7,12 +7,17 @@ import { template } from './chat.tmpl.js'
 import { chatsController, IChatsListData } from '../../controllers/chats/index.js'
 import { MessagesComp } from './components/messages/messages.js'
 import { NotificationComp } from '../../components/notification/notification.js'
+import { ButtonComp } from '../../components/button/button.js'
+import { ModalContent } from './components/modalContentChat/modalContentChat.js'
+import { ModalComp } from '../../components/modal/modal.js'
 export default class PageChat extends Block {
     chatsListData: IChatsListData[]
     chatsListComp: ChatListItemComp<IChatsListData>[]
     chatsPage: HTMLElement | null
     chatsListContainer: HTMLElement | null | undefined
     shownMessages: MessagesComp<{ id: number; title: string }>
+    modalContent: ModalContent
+    modal: ModalComp
     constructor(protected props: any) {
         super("div", props, { "class": `page page-chat d-flex ${props.class ?? ''}` });
     }
@@ -36,6 +41,50 @@ export default class PageChat extends Block {
         }
         const searchInput = new InputComp(searchInputData)
         if (searchContainer) searchContainer.appendChild(searchInput.getContent())
+
+        const createChatButton = new ButtonComp({
+            text: 'Создать чат',
+            class: 'primary mt-3',
+            events: {
+                click: () => this.showModal()
+            }
+        })
+        if (searchContainer) searchContainer.appendChild(createChatButton.getContent())
+    }
+
+    showModal() {
+        const pageContainer = document.querySelector('.page')
+        // TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
+        this.modalContent = new ModalContent({})
+        this.modal = new ModalComp({ content: '' })
+        this.modalContent.contentFilled = () => {
+            this.modal.element.appendChild(this.modalContent.element)
+
+            if (pageContainer) {
+                pageContainer.prepend(this.modal.getContent())
+            }
+            this.modalContent.createChat = this.createChat.bind(this)
+
+            this.modal.show()
+        }
+    }
+
+    createChat() {
+        if (!this.modalContent.input.isValid()) return
+
+        // Все норм. Я валидацией проверяю
+        // @ts-ignore
+        const title: string = this.modalContent.input.value
+
+        chatsController.createChat({
+            title
+        })
+            .then(() => {
+                this.getChatsList()
+                new NotificationComp({ type: 'success', text: 'Чат успешно создан' })
+            })
+            .catch((e) => new NotificationComp({ type: 'error', text: e }))
+            .finally(() => this.modal.remove())
     }
 
     getChatsList() {
@@ -54,7 +103,7 @@ export default class PageChat extends Block {
                 this.setChatsList()
             })
             .catch(e => {
-                new NotificationComp({type: 'error', text: e})
+                new NotificationComp({ type: 'error', text: e })
             })
     }
 
