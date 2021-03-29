@@ -7,6 +7,7 @@ import { Templator } from '../../modules/templator.js'
 import { template } from './signup.tmpl.js'
 import { authController, ISignupData } from '../../controllers/auth/index.js'
 import { router } from '../../modules/router/router.js'
+import { NotificationComp } from '../../components/notification/notification.js'
 
 export default class PageSignup extends Block {
     inputList: InputComp[]
@@ -123,7 +124,7 @@ export default class PageSignup extends Block {
         this.inputList.forEach(item => {
             const { isValid, name, value } = item
             
-            if (!isValid()) {
+            if (!isValid.call(item)) {
                 throw Error('Валидация не пройдена')
             }
 
@@ -136,7 +137,7 @@ export default class PageSignup extends Block {
         .then(() => {
             router.go('chat')
         }).catch(e => {
-            console.log(e);
+            new NotificationComp({type: 'error', text: e});
         })
     }
 }

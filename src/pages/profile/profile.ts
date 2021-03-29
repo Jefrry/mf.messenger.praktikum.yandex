@@ -13,6 +13,7 @@ import { validationEmpty, validationPassword, validationPhone } from '../../util
 import { InputComp } from '../../components/input/input.js';
 import { IChangePassword, IChangeUserInfo, userController } from '../../controllers/user/index.js';
 import { ModalContent } from './components/modalContent/modalContent.js';
+import { NotificationComp } from '../../components/notification/notification.js';
 
 enum profileInfoDataEnum {
     email = 'Почта',
@@ -82,7 +83,7 @@ export default class PageProfile extends Block {
                 this.userInfo = data
             })
             .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e});
             })
 
     }
@@ -208,7 +209,7 @@ export default class PageProfile extends Block {
         this.changeUserInfoInputList.forEach(item => {
             const { isValid, name, value } = item
             
-            if (!isValid()) {
+            if (!isValid.call(item)) {
                 throw Error('Валидация не пройдена')
             }
 
@@ -222,7 +223,7 @@ export default class PageProfile extends Block {
                 router.refresh()
             })
             .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e});
             })
     }
 
@@ -291,7 +292,7 @@ export default class PageProfile extends Block {
         this.changePasswordInputList.forEach(item => {
             const { isValid, name, value } = item
             
-            if (!isValid()) {
+            if (!isValid.call(item)) {
                 throw Error('Валидация не пройдена')
             }
 
@@ -305,7 +306,7 @@ export default class PageProfile extends Block {
                 router.refresh()
             })
             .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e});
             })
     }
 
@@ -315,7 +316,7 @@ export default class PageProfile extends Block {
                 router.go('login')
             })
             .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e});
             })
     }
 }

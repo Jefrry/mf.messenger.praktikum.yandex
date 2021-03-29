@@ -1,5 +1,6 @@
 import { Block } from "../../../../components/block/block.js";
 import { ButtonComp } from "../../../../components/button/button.js";
+import { NotificationComp } from "../../../../components/notification/notification.js";
 import { userController } from "../../../../controllers/user/user.js";
 import { router } from "../../../../modules/router/router.js";
 import { Templator } from "../../../../modules/templator.js";
@@ -40,7 +41,7 @@ class ModalContent extends Block {
                 router.refresh()
               })
               .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e});
               })
           }
         }

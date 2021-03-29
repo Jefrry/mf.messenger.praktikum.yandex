@@ -1,11 +1,12 @@
 import { ChatListItemComp } from './components/chatListItem/chatListItem.js'
 import { InputComp } from '../../components/input/input.js'
-import { searchInputData} from './mocks.js'
+import { searchInputData } from './mocks.js'
 import { Block } from '../../components/block/block.js'
 import { Templator } from '../../modules/templator.js'
 import { template } from './chat.tmpl.js'
 import { chatsController, IChatsListData } from '../../controllers/chats/index.js'
 import { MessagesComp } from './components/messages/messages.js'
+import { NotificationComp } from '../../components/notification/notification.js'
 export default class PageChat extends Block {
     chatsListData: IChatsListData[]
     chatsListComp: ChatListItemComp<IChatsListData>[]
@@ -41,16 +42,19 @@ export default class PageChat extends Block {
         chatsController.getChatList()
             .then((data: IChatsListData[]) => {
                 this.chatsListData = data
-                // дополняю немного данные, так как на данном спринте с сообщениями не работаю
-                this.chatsListData.forEach(c => {
-                    c.message = 'Ths is message example'
-                    c.date = '20:33'
-                })
-                this.chatsListData[0].notification = 3
+
+                if (this.chatsListData.length > 0) {
+                    // дополняю немного данные, так как на данном спринте с сообщениями не работаю
+                    this.chatsListData.forEach(c => {
+                        c.message = 'Ths is message example'
+                        c.date = '20:33'
+                    })
+                    this.chatsListData[0].notification = 3
+                }
                 this.setChatsList()
             })
             .catch(e => {
-                console.log(e);
+                new NotificationComp({type: 'error', text: e})
             })
     }
 

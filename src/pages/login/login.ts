@@ -7,6 +7,7 @@ import { Templator } from '../../modules/templator.js'
 import { template } from './login.tmpl.js'
 import { authController, ILoginData } from '../../controllers/auth/index.js'
 import { router } from '../../modules/router/router.js'
+import { NotificationComp } from '../../components/notification/notification.js'
 export default class PageLogin extends Block {
     inputList: InputComp[]
     constructor(protected props: any) {
@@ -70,10 +71,10 @@ export default class PageLogin extends Block {
             password: ''
         }
 
-        this.inputList.forEach((item) => {
+        this.inputList.forEach(function (item) {
             const { isValid, name, value } = item
             
-            if (!isValid()) {
+            if (!isValid.call(item)) {
                 throw Error('Валидация не пройдена')
             }
 
@@ -86,8 +87,7 @@ export default class PageLogin extends Block {
         .then(() => {
             router.go('chat')
         }).catch(e => {
-            console.log(e);
-            
+            new NotificationComp({type: 'error', text: e})
         })
     }
 }

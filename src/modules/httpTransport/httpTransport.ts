@@ -29,7 +29,7 @@ export class HTTPTransport {
             xhr.withCredentials = true
             if (headers) xhr.setRequestHeader(headers.name, headers.value)
 
-            xhr.onload = () => 200 <= xhr.status || xhr.status < 300 ? res(xhr) : rej(xhr)
+            xhr.onload = () => xhr.status < 400 ? res(xhr) : rej(xhr)
 
             xhr.onabort = () => rej(xhr)
             xhr.onerror = () => rej(xhr)
