@@ -85,7 +85,6 @@ export default class PageProfile extends Block {
             .catch(e => {
                 new NotificationComp({type: 'error', text: e});
             })
-
     }
 
     setModal() {

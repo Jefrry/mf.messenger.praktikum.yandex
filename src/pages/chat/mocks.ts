@@ -17,25 +17,5 @@ const clipPopupData = {
         text: 'Локация'
     }]
 }
-const sendInputData = {
-    type: 'input',
-    class: 'field_gray',
-    placeholder: 'Сообщение',
-    name: 'message',
-}
-const messagesData = [{
-    class: 'align-self-start my-4',
-    content: 'Здесь будет чужой текст сообщения',
-    time: '00:00'
-}, {
-    class: 'image align-self-start my-1',
-    content: '<img src="../../img/cat.png" alt="Image example" draggable="false">',
-    time: '00:01'
-},{
-    class: 'message_my align-self-end my-4',
-    content: 'Ложись спать, не заставляй котика плакать',
-    time: `<i class="fas fa-check-double"></i>
-           <span>00:34</span>`
-}]
 
-export {searchInputData,clipPopupData,sendInputData,messagesData}
+export {searchInputData,clipPopupData}

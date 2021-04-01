@@ -10,4 +10,17 @@ interface IChatsListData {
 
 type ICreateChatData = Pick<IChatsListData, 'title'>
 
-export { IChatsListData, ICreateChatData }
+interface ISubOnNewMessages {
+  chatId: number
+  userId: number
+  token: string
+}
+
+interface IMessage {
+  content: string,
+  type: string,
+  user_id: number,
+  time: Date | string
+}
+
+export { IChatsListData, ICreateChatData, ISubOnNewMessages, IMessage }

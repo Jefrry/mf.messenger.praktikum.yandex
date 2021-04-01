@@ -10,12 +10,14 @@ import { NotificationComp } from '../../components/notification/notification.js'
 import { ButtonComp } from '../../components/button/button.js'
 import { ModalContent } from './components/modalContentChat/modalContentChat.js'
 import { ModalComp } from '../../components/modal/modal.js'
+import { authController, IUserInfoData } from '../../controllers/auth/index.js'
 export default class PageChat extends Block {
     chatsListData: IChatsListData[]
     chatsListComp: ChatListItemComp<IChatsListData>[]
     chatsPage: HTMLElement | null
     chatsListContainer: HTMLElement | null | undefined
-    shownMessages: MessagesComp<{ id: number; title: string }>
+    shownMessages: MessagesComp<{ chatId: number; title: string; userId: number }>
+    userId: number | null
     modalContent: ModalContent
     modal: ModalComp
     constructor(protected props: any) {
@@ -32,6 +34,7 @@ export default class PageChat extends Block {
 
     private _initPage() {
         this.getChatsList()
+        if (!this.userId) this.getUserId()
 
         this.chatsPage = document.querySelector('.page-chat')
 
@@ -91,15 +94,6 @@ export default class PageChat extends Block {
         chatsController.getChatList()
             .then((data: IChatsListData[]) => {
                 this.chatsListData = data
-
-                if (this.chatsListData.length > 0) {
-                    // дополняю немного данные, так как на данном спринте с сообщениями не работаю
-                    this.chatsListData.forEach(c => {
-                        c.message = 'Ths is message example'
-                        c.date = '20:33'
-                    })
-                    this.chatsListData[0].notification = 3
-                }
                 this.setChatsList()
             })
             .catch(e => {
@@ -125,8 +119,15 @@ export default class PageChat extends Block {
     }
 
     chatClick(that: ChatListItemComp<IChatsListData>) {
+        if (this.shownMessages?.chatId === that.id) return
+
+        if (!this.userId) {
+            new NotificationComp({ type: 'error', text: 'Не удалось получить ID пользователя, обновите страницу', time: 5000 })
+            return
+        }
+
         this.removeChat()
-        this.shownMessages = new MessagesComp({ id: that.id, title: that.title })
+        this.shownMessages = new MessagesComp({ userId: this.userId, chatId: that.id, title: that.title })
         this.setChat()
     }
 
@@ -142,5 +143,15 @@ export default class PageChat extends Block {
         if (emptyMessages) {
             emptyMessages.remove()
         }
+    }
+
+    getUserId() {
+        authController.getUserInfo()
+            .then((data: IUserInfoData) => {
+                this.userId = data.id
+            })
+            .catch(e => {
+                new NotificationComp({ type: 'error', text: e });
+            })
     }
 }

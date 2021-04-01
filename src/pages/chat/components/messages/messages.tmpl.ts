@@ -9,7 +9,6 @@ const template = `<header class="messages-header relative d-flex justify-start a
                         </button>
                     </header>
                     <div class="messages-area d-flex flex-column justify-end mx-5">
-                        <span class="date align-self-center my-4">19 июня</span>
                         
                     </div>
                     <div class="messages-controls relative d-flex justify-space-between align-center mx-5 my-4">

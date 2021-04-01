@@ -95,8 +95,8 @@ class Block {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
-                this.element.addEventListener(eventName, () => {
-                    events[eventName](this)
+                this.element.addEventListener(eventName, (e) => {
+                    events[eventName](this, e)
                 });
             });
         }
@@ -105,8 +105,8 @@ class Block {
         if (this.props.events) {
             const events = this.props.events
             Object.keys(events).forEach(eventName => {
-                this.element.removeEventListener(eventName, () => {
-                    events[eventName](this)
+                this.element.removeEventListener(eventName, (e) => {
+                    events[eventName](this, e)
                 });
             });
         }
