@@ -1,4 +1,4 @@
-import { IBlockCompProps } from "../block/block.type";
+import {IBlockCompProps} from '../block/block.type';
 
 interface IPopupCompProps extends IBlockCompProps {
   items: IPopupCompPropsItem[]
@@ -9,6 +9,6 @@ interface IPopupCompPropsItem extends IBlockCompProps {
 }
 
 export {
-  IPopupCompProps,
-  IPopupCompPropsItem
-}
+	IPopupCompProps,
+	IPopupCompPropsItem
+};

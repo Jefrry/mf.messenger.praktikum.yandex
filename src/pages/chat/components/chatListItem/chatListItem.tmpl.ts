@@ -8,6 +8,6 @@ const template: string = `<div class="avatar d-flex justify-center align-center 
                         <div class="info d-flex flex-column justify-space-between align-center">
                             <span class="date">{{date}}</span>
                             <span class="notification d-flex justify-center align-center">{{notification}}</span>
-                        </div>`
+                        </div>`;
 
-export {template}
+export {template};

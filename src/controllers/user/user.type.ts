@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 interface IChangePassword {
   oldPassword: string,
   newPassword: string
@@ -16,4 +17,4 @@ interface IAddRemoveUserToChat {
   chatId: number
 }
 
-export { IChangePassword, IChangeUserInfo,IAddRemoveUserToChat }
+export {IChangePassword, IChangeUserInfo, IAddRemoveUserToChat};

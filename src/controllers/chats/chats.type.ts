@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 interface IChatsListData {
   title: string,
   avatar: string,
@@ -23,4 +24,4 @@ interface IMessage {
   time: Date | string
 }
 
-export { IChatsListData, ICreateChatData, ISubOnNewMessages, IMessage }
+export {IChatsListData, ICreateChatData, ISubOnNewMessages, IMessage};

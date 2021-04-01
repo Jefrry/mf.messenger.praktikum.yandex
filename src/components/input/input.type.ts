@@ -1,4 +1,4 @@
-import { IBlockCompProps } from "../block/block.type";
+import {IBlockCompProps} from '../block/block.type';
 
 interface IInputCompProps extends IBlockCompProps {
     type: string,
@@ -10,4 +10,4 @@ interface IInputCompProps extends IBlockCompProps {
     }
 }
 
-export {IInputCompProps}
+export {IInputCompProps};

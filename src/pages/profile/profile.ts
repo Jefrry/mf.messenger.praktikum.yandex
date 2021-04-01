@@ -1,321 +1,331 @@
-import { ProfileInfoComp } from './components/profileInfo/profileInfo.js'
-import { ModalComp } from '../../components/modal/modal.js'
-import { Block } from '../../components/block/block.js'
-import { Templator } from '../../modules/templator.js';
-import { template } from './profile.tmpl.js';
-import { authController, IUserInfoData } from '../../controllers/auth/index.js';
-import { IProfileInfoCompProps } from './components/profileInfo/profileInfo.type.js';
-import { ButtonComp } from '../../components/button/button.js';
-import { IButtonCompProps } from '../../components/button/button.type.js';
-import { router } from '../../modules/router/router.js';
-import { IInputCompProps } from '../../components/input/input.type.js';
-import { validationEmpty, validationPassword, validationPhone } from '../../utils/validator.js';
-import { InputComp } from '../../components/input/input.js';
-import { IChangePassword, IChangeUserInfo, userController } from '../../controllers/user/index.js';
-import { ModalContent } from './components/modalContent/modalContent.js';
-import { NotificationComp } from '../../components/notification/notification.js';
+/* eslint-disable camelcase */
+// Это данные для бекенда
+import {ProfileInfoComp} from './components/profileInfo/profileInfo.js';
+import {ModalComp} from '../../components/modal/modal.js';
+import {Block} from '../../components/block/block.js';
+import {Templator} from '../../modules/templator.js';
+import {template} from './profile.tmpl.js';
+import {authController, IUserInfoData} from '../../controllers/auth/index.js';
+import {IProfileInfoCompProps} from './components/profileInfo/profileInfo.type.js';
+import {ButtonComp} from '../../components/button/button.js';
+import {IButtonCompProps} from '../../components/button/button.type.js';
+import {router} from '../../modules/router/router.js';
+import {IInputCompProps} from '../../components/input/input.type.js';
+import {validationEmpty, validationPassword, validationPhone} from '../../utils/validator.js';
+import {InputComp} from '../../components/input/input.js';
+import {IChangePassword, IChangeUserInfo, userController} from '../../controllers/user/index.js';
+import {ModalContent} from './components/modalContent/modalContent.js';
+import {NotificationComp} from '../../components/notification/notification.js';
 
 enum profileInfoDataEnum {
-    email = 'Почта',
-    login = 'Логин',
-    first_name = 'Имя',
-    second_name = 'Фамилия',
-    display_name = 'Имя в чате',
-    phone = 'Телефон'
+	email = 'Почта',
+	login = 'Логин',
+	first_name = 'Имя',
+	second_name = 'Фамилия',
+	display_name = 'Имя в чате',
+	phone = 'Телефон'
 }
 export default class PageProfile extends Block {
-    userInfo: IUserInfoData;
-    buttonsData: IButtonCompProps[];
-    buttons: ButtonComp[];
-    profileInfoList: ProfileInfoComp;
-    changePasswordInputList: InputComp[];
-    profileAvatarContainer: HTMLElement | null;
-    buttonsContainer: HTMLElement | null;
-    changeUserInfoInputList: InputComp[];
+	userInfo: IUserInfoData;
+	buttonsData: IButtonCompProps[];
+	buttons: ButtonComp[];
+	profileInfoList: ProfileInfoComp;
+	changePasswordInputList: InputComp[];
+	profileAvatarContainer: HTMLElement | null;
+	buttonsContainer: HTMLElement | null;
+	changeUserInfoInputList: InputComp[];
 
-    constructor(protected props: any) {
-        super("div", props, { "class": `page page-profile d-flex ${props.class ?? ''}` });
+	constructor(protected props: any) {
+		super('div', props, {class: `page page-profile d-flex ${props.class ?? ''}`});
 
-        this.buttonsData = [{
-            text: 'Изменить данные',
-            class: 'profile-buttons__item relative d-flex mt-5 pointer link',
-            events: {
-                click: this.showChangeUserInfo.bind(this)
-            }
-        }, {
-            text: 'Изменить пароль',
-            class: 'profile-buttons__item relative d-flex mt-5 pointer link',
-            events: {
-                click: this.showChangePassword.bind(this)
-            }
-        }, {
-            text: 'Выйти',
-            class: 'profile-buttons__item relative d-flex mt-5 pointer logout',
-            events: {
-                click: this.logout.bind(this)
-            }
-        }]
-        this.buttons = []
-    }
+		this.buttonsData = [{
+			text: 'Изменить данные',
+			class: 'profile-buttons__item relative d-flex mt-5 pointer link',
+			events: {
+				click: this.showChangeUserInfo.bind(this)
+			}
+		}, {
+			text: 'Изменить пароль',
+			class: 'profile-buttons__item relative d-flex mt-5 pointer link',
+			events: {
+				click: this.showChangePassword.bind(this)
+			}
+		}, {
+			text: 'Выйти',
+			class: 'profile-buttons__item relative d-flex mt-5 pointer logout',
+			events: {
+				click: this.logout.bind(this)
+			}
+		}];
+		this.buttons = [];
+	}
 
-    async componentDidMount() {
-        await this.getUserInfo()
-        this.userInfo.avatar = this.userInfo.avatar === '' ? '<i class="fas fa-user-alt"></i>' : `<img src="https://ya-praktikum.tech/${this.userInfo.avatar}"/>`
-    }
+	async componentDidMount() {
+		await this.getUserInfo();
+		this.userInfo.avatar = this.userInfo.avatar === '' ? '<i class="fas fa-user-alt"></i>' : `<img src="https://ya-praktikum.tech/${this.userInfo.avatar}"/>`;
+	}
 
-    render() {
-        return (new Templator(template)).compile(this.userInfo);
-    }
+	render() {
+		return (new Templator(template)).compile(this.userInfo);
+	}
 
-    componentDidRender() {
-        this._initPage()
-    }
+	componentDidRender() {
+		this._initPage();
+	}
 
-    private _initPage() {
-        this.setButtons()
-        this.setUserInfo()
-        this.setModal()
-    }
+	private _initPage() {
+		this.setButtons();
+		this.setUserInfo();
+		this.setModal();
+	}
 
-    async getUserInfo() {
-        await authController.getUserInfo()
-            .then((data: IUserInfoData) => {
-                this.userInfo = data
-            })
-            .catch(e => {
-                new NotificationComp({type: 'error', text: e});
-            })
-    }
+	async getUserInfo() {
+		await authController.getUserInfo()
+			.then((data: IUserInfoData) => {
+				this.userInfo = data;
+			})
+			.catch(e => {
+				new NotificationComp({type: 'error', text: e});
+			});
+	}
 
-    setModal() {
-        const pageContainer = document.querySelector('.page')
-        const avatarHover = document.querySelector('.avatar_hover')
+	setModal() {
+		const pageContainer = document.querySelector('.page');
+		const avatarHover = document.querySelector('.avatar_hover');
 
-        // TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
-        const modalContent = new ModalContent({})
-        const modal = new ModalComp({ content: '' })
-        modalContent.contentFilled = () => {
-            modal.element.appendChild(modalContent.element)
+		// TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
+		const modalContent = new ModalContent({});
+		const modal = new ModalComp({content: ''});
+		modalContent.contentFilled = () => {
+			modal.element.appendChild(modalContent.element);
 
-            if (pageContainer) {
-                pageContainer.prepend(modal.getContent())
-            }
-        }
-        
-        if (avatarHover) {
-            avatarHover.addEventListener('click', function (e) {
-                e.preventDefault()
-                modal.show()
-            })
-        }
-    }
+			if (pageContainer) {
+				pageContainer.prepend(modal.getContent());
+			}
+		};
 
-    setUserInfo() {
-        let data: IProfileInfoCompProps = { items: [] }
+		if (avatarHover) {
+			avatarHover.addEventListener('click', function (e) {
+				e.preventDefault();
+				modal.show();
+			});
+		}
+	}
 
-        for (const key in this.userInfo) {
-            if (profileInfoDataEnum[key]) {
-                data.items.push({
-                    name: profileInfoDataEnum[key],
-                    value: this.userInfo[key]
-                })
-            }
-        }
+	setUserInfo() {
+		let data: IProfileInfoCompProps = {items: []};
 
-        this.profileInfoList = new ProfileInfoComp(data)
+		for (const key in this.userInfo) {
+			if (profileInfoDataEnum[key]) {
+				data.items.push({
+					name: profileInfoDataEnum[key],
+					value: this.userInfo[key]
+				});
+			}
+		}
 
-        this.profileAvatarContainer = document.querySelector('.profile-avatar') // для вставки через after
+		this.profileInfoList = new ProfileInfoComp(data);
 
-        if (this.profileAvatarContainer) {
-            this.profileAvatarContainer.after(this.profileInfoList.getContent())
-        }
-    }
+		this.profileAvatarContainer = document.querySelector('.profile-avatar'); // Для вставки через after
 
-    setButtons() {
-        this.buttonsContainer = document.querySelector('.profile-buttons')
+		if (this.profileAvatarContainer) {
+			this.profileAvatarContainer.after(this.profileInfoList.getContent());
+		}
+	}
 
-        if (this.buttonsContainer) {
-            this.buttonsData.forEach(data => {
-                const button = new ButtonComp(data)
-                this.buttonsContainer?.appendChild(button.getContent())
-                this.buttons.push(button)
-            })
-        }
-    }
+	setButtons() {
+		this.buttonsContainer = document.querySelector('.profile-buttons');
 
-    removeButtons() {
-        this.buttons = this.buttons.filter((b) => {
-            b.remove()
-        })
-    }
+		if (this.buttonsContainer) {
+			this.buttonsData.forEach(data => {
+				const button = new ButtonComp(data);
+				this.buttonsContainer?.appendChild(button.getContent());
+				this.buttons.push(button);
+			});
+		}
+	}
 
-    showChangeUserInfo() {
-        this.profileInfoList.remove()
-        this.removeButtons()
+	removeButtons() {
+		this.buttons.forEach(b => {
+			b.remove();
+		});
+		this.buttons = [];
+	}
 
-        this.changeUserInfoInputList = []
+	showChangeUserInfo() {
+		this.profileInfoList.remove();
+		this.removeButtons();
 
-        const inputsData: IInputCompProps[] = []
-        for (const key in this.userInfo) {
-            if (profileInfoDataEnum[key]) {
-                const validation = key === profileInfoDataEnum.phone ? {
-                    fn: (val: string) => validationPhone(val),
-                    text: 'Некорректный номер телефона. Введите от 11 до 13 цифр (без пробелов и тире)'
-                } : {
-                    fn: (val: string) => validationEmpty(val),
-                    text: 'Обязательное поле'
-                }
-                inputsData.push({
-                    type: 'input',
-                    placeholder: profileInfoDataEnum[key],
-                    name: key,
-                    validation
-                })
-            }
-        }
-        const buttonData = {
-            text: 'Сохранить',
-            class: 'primary',
-            events: {
-                click: this.changeUserInfo.bind(this)
-            }
-        }
+		this.changeUserInfoInputList = [];
 
-        inputsData.reverse().forEach(x => {
-            const el = new InputComp(x)
-            if (x.name) el.setValue(this.userInfo[x.name])
-            this.changeUserInfoInputList.push(el)
-            if (this.profileAvatarContainer) {
-                this.profileAvatarContainer.after(el.getContent())
-            }
-        })
+		const inputsData: IInputCompProps[] = [];
+		for (const key in this.userInfo) {
+			if (profileInfoDataEnum[key]) {
+				const validation = key === profileInfoDataEnum.phone ? {
+					fn: (val: string) => validationPhone(val),
+					text: 'Некорректный номер телефона. Введите от 11 до 13 цифр (без пробелов и тире)'
+				} : {
+					fn: (val: string) => validationEmpty(val),
+					text: 'Обязательное поле'
+				};
+				inputsData.push({
+					type: 'input',
+					placeholder: profileInfoDataEnum[key],
+					name: key,
+					validation
+				});
+			}
+		}
 
-        if (this.buttonsContainer) {
-            this.buttonsContainer.appendChild((new ButtonComp(buttonData)).getContent())
-        }
-    }
+		const buttonData = {
+			text: 'Сохранить',
+			class: 'primary',
+			events: {
+				click: this.changeUserInfo.bind(this)
+			}
+		};
 
-    changeUserInfo() {
-        let data: IChangeUserInfo = {
-            first_name: '',
-            second_name: '',
-            display_name: '',
-            login: '',
-            email: '',
-            phone: ''
-        }
+		inputsData.reverse().forEach(x => {
+			const el = new InputComp(x);
+			if (x.name) {
+				el.setValue(this.userInfo[x.name]);
+			}
 
-        this.changeUserInfoInputList.forEach(item => {
-            const { isValid, name, value } = item
-            
-            if (!isValid.call(item)) {
-                throw Error('Валидация не пройдена')
-            }
+			this.changeUserInfoInputList.push(el);
+			if (this.profileAvatarContainer) {
+				this.profileAvatarContainer.after(el.getContent());
+			}
+		});
 
-            if (name && name in data) {
-                data[name] = value
-            }
-        })
+		if (this.buttonsContainer) {
+			this.buttonsContainer.appendChild((new ButtonComp(buttonData)).getContent());
+		}
+	}
 
-        userController.changeUserInfo(data)
-            .then(() => {
-                router.refresh()
-            })
-            .catch(e => {
-                new NotificationComp({type: 'error', text: e});
-            })
-    }
+	changeUserInfo() {
+		let data: IChangeUserInfo = {
+			first_name: '',
+			second_name: '',
+			display_name: '',
+			login: '',
+			email: '',
+			phone: ''
+		};
 
-    showChangePassword() {
-        this.profileInfoList.remove()
-        this.removeButtons()
+		this.changeUserInfoInputList.forEach(item => {
+			const {isValid, name, value} = item;
 
-        this.changePasswordInputList = []
+			if (!isValid.call(item)) {
+				throw Error('Валидация не пройдена');
+			}
 
-        const inputsData: IInputCompProps[] = [{
-            type: 'password',
-            placeholder: 'Старый пароль',
-            name: 'oldPassword',
-            validation: {
-                fn: (val: string) => validationPassword(val),
-                text: 'Невалидный пароль'
-            }
-        }, {
-            type: 'password',
-            placeholder: 'Новый пароль',
-            name: 'newPassword',
-            validation: {
-                fn: (val: string) => validationPassword(val),
-                text: 'Невалидный пароль'
-            }
-        }, {
-            type: 'password',
-            placeholder: 'Пароль (еще раз)',
-            name: 'password_again',
-            validation: {
-                fn: (val: string): boolean => {
-                    const pass: InputComp | undefined = this.changePasswordInputList.find((x) => x.name === 'newPassword')
-                    if (pass) return validationPassword(val) && pass.value === val
-                    return false
-                },
-                text: 'Пароли не совпадают'
-            }
-        }]
-        const buttonData = {
-            text: 'Сохранить',
-            class: 'primary',
-            events: {
-                click: this.changePassword.bind(this)
-            }
-        }
+			if (name && name in data) {
+				data[name] = value;
+			}
+		});
 
-        inputsData.reverse().forEach(x => {
-            const el = new InputComp(x)
-            this.changePasswordInputList.push(el)
-            if (this.profileAvatarContainer) {
-                this.profileAvatarContainer.after(el.getContent())
-            }
-        })
+		userController.changeUserInfo(data)
+			.then(() => {
+				router.refresh();
+			})
+			.catch(e => {
+				new NotificationComp({type: 'error', text: e});
+			});
+	}
 
-        if (this.buttonsContainer) {
-            this.buttonsContainer.appendChild((new ButtonComp(buttonData)).getContent())
-        }
-    }
+	showChangePassword() {
+		this.profileInfoList.remove();
+		this.removeButtons();
 
-    changePassword() {
-        let data: IChangePassword = {
-            oldPassword: '',
-            newPassword: ''
-        }
+		this.changePasswordInputList = [];
 
-        this.changePasswordInputList.forEach(item => {
-            const { isValid, name, value } = item
-            
-            if (!isValid.call(item)) {
-                throw Error('Валидация не пройдена')
-            }
+		const inputsData: IInputCompProps[] = [{
+			type: 'password',
+			placeholder: 'Старый пароль',
+			name: 'oldPassword',
+			validation: {
+				fn: (val: string) => validationPassword(val),
+				text: 'Невалидный пароль'
+			}
+		}, {
+			type: 'password',
+			placeholder: 'Новый пароль',
+			name: 'newPassword',
+			validation: {
+				fn: (val: string) => validationPassword(val),
+				text: 'Невалидный пароль'
+			}
+		}, {
+			type: 'password',
+			placeholder: 'Пароль (еще раз)',
+			name: 'password_again',
+			validation: {
+				fn: (val: string): boolean => {
+					const pass: InputComp | undefined = this.changePasswordInputList.find(x => x.name === 'newPassword');
+					if (pass) {
+						return validationPassword(val) && pass.value === val;
+					}
 
-            if (name && name in data) {
-                data[name] = value
-            }
-        })
+					return false;
+				},
+				text: 'Пароли не совпадают'
+			}
+		}];
+		const buttonData = {
+			text: 'Сохранить',
+			class: 'primary',
+			events: {
+				click: this.changePassword.bind(this)
+			}
+		};
 
-        userController.changePassword(data)
-            .then(() => {
-                router.refresh()
-            })
-            .catch(e => {
-                new NotificationComp({type: 'error', text: e});
-            })
-    }
+		inputsData.reverse().forEach(x => {
+			const el = new InputComp(x);
+			this.changePasswordInputList.push(el);
+			if (this.profileAvatarContainer) {
+				this.profileAvatarContainer.after(el.getContent());
+			}
+		});
 
-    logout() {
-        authController.logout()
-            .then(() => {
-                router.go('login')
-            })
-            .catch(e => {
-                new NotificationComp({type: 'error', text: e});
-            })
-    }
+		if (this.buttonsContainer) {
+			this.buttonsContainer.appendChild((new ButtonComp(buttonData)).getContent());
+		}
+	}
+
+	changePassword() {
+		let data: IChangePassword = {
+			oldPassword: '',
+			newPassword: ''
+		};
+
+		this.changePasswordInputList.forEach(item => {
+			const {isValid, name, value} = item;
+
+			if (!isValid.call(item)) {
+				throw Error('Валидация не пройдена');
+			}
+
+			if (name && name in data) {
+				data[name] = value;
+			}
+		});
+
+		userController.changePassword(data)
+			.then(() => {
+				router.refresh();
+			})
+			.catch(e => {
+				new NotificationComp({type: 'error', text: e});
+			});
+	}
+
+	logout() {
+		authController.logout()
+			.then(() => {
+				router.go('login');
+			})
+			.catch(e => {
+				new NotificationComp({type: 'error', text: e});
+			});
+	}
 }

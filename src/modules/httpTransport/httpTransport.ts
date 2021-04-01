@@ -1,57 +1,64 @@
-import { IRequestOptions, IRequestOptionsWithMethod, METHODS } from "./httpTransport.type.js";
+import {IRequestOptions, IRequestOptionsWithMethod, METHODS} from './httpTransport.type.js';
 
 export class HTTPTransport {
-    private readonly _baseUrl: string;
-    constructor(baseUrl?: string) {
-        this._baseUrl = baseUrl ? baseUrl : 'https://ya-praktikum.tech/api/v2/'
-     }
-    
-    get = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, { ...options, method: METHODS.GET }, options.timeout);
-    };
-    put = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._makeUrl(url)}`, { ...options, method: METHODS.PUT }, options.timeout)
-    };
-    post = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._makeUrl(url)}`, { ...options, method: METHODS.POST }, options.timeout)
-    };
-    delete = (url: string, options: IRequestOptions) => {
-        return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, { ...options, method: METHODS.DELETE }, options.timeout);
-    };
+	private readonly _baseUrl: string;
+	constructor(baseUrl?: string) {
+		this._baseUrl = baseUrl ? baseUrl : 'https://ya-praktikum.tech/api/v2/';
+	}
 
-    request = (url: string, options: IRequestOptionsWithMethod, timeout = 5000) => {
-        const { method, data, headers } = options
+	get = (url: string, options: IRequestOptions) => {
+		return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, {...options, method: METHODS.GET}, options.timeout);
+	};
 
-        return new Promise((res, rej) => {
-            const xhr = new XMLHttpRequest()
-            xhr.open(method, url)
-            xhr.timeout = timeout
-            xhr.withCredentials = true
-            if (headers) xhr.setRequestHeader(headers.name, headers.value)
+	put = (url: string, options: IRequestOptions) => {
+		return this.request(`${this._makeUrl(url)}`, {...options, method: METHODS.PUT}, options.timeout);
+	};
 
-            xhr.onload = () => xhr.status < 400 ? res(xhr) : rej(xhr)
+	post = (url: string, options: IRequestOptions) => {
+		return this.request(`${this._makeUrl(url)}`, {...options, method: METHODS.POST}, options.timeout);
+	};
 
-            xhr.onabort = () => rej(xhr)
-            xhr.onerror = () => rej(xhr)
-            xhr.ontimeout = () => rej(xhr)
+	delete = (url: string, options: IRequestOptions) => {
+		return this.request(`${this._makeUrl(url)}${this._queryStringify(options.data)}`, {...options, method: METHODS.DELETE}, options.timeout);
+	};
 
-            if (method === METHODS.GET || !data) {
-                xhr.send()
-            } else {
-                xhr.send(data)
-            }
-        })
-    };
+	request = (url: string, options: IRequestOptionsWithMethod, timeout = 5000) => {
+		const {method, data, headers} = options;
 
-    private _makeUrl(url: string): string {
-        return this._baseUrl + url
-    }
+		return new Promise((res, rej) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open(method, url);
+			xhr.timeout = timeout;
+			xhr.withCredentials = true;
+			if (headers) {
+				xhr.setRequestHeader(headers.name, headers.value);
+			}
 
-    private _queryStringify(data: { [key: string]: string }) {
-        if (!data) return ''
+			xhr.onload = () => xhr.status < 400 ? res(xhr) : rej(xhr);
 
-        return Object.entries(data).reduce((res, [key, value]) => {
-            return `${res}${key}=${value}&`;
-        }, '?')
-    }
+			xhr.onabort = () => rej(xhr);
+			xhr.onerror = () => rej(xhr);
+			xhr.ontimeout = () => rej(xhr);
+
+			if (method === METHODS.GET || !data) {
+				xhr.send();
+			} else {
+				xhr.send(data);
+			}
+		});
+	};
+
+	private _makeUrl(url: string): string {
+		return this._baseUrl + url;
+	}
+
+	private _queryStringify(data: { [key: string]: string }) {
+		if (!data) {
+			return '';
+		}
+
+		return Object.entries(data).reduce((res, [key, value]) => {
+			return `${res}${key}=${value}&`;
+		}, '?');
+	}
 }

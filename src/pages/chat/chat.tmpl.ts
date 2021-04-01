@@ -9,6 +9,6 @@ const template = `<div class="chats d-flex flex-column">
                   </div>
                   <div class="messages messages_empty d-flex justify-center align-center">
                     <span class="messages_empty__text">Выберите чат чтобы отправить сообщения</span>
-                  </div>`
+                  </div>`;
 
-export {template}
+export {template};

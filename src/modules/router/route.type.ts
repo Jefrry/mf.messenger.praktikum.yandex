@@ -4,4 +4,4 @@ interface IRoute {
   component: Function
 }
 
-export { IRoute }
+export {IRoute};

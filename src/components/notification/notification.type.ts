@@ -1,4 +1,4 @@
-import { IBlockCompProps } from "../block/block.type";
+import {IBlockCompProps} from '../block/block.type';
 
 interface INotificationProps extends IBlockCompProps {
   text: string,
@@ -6,4 +6,4 @@ interface INotificationProps extends IBlockCompProps {
   time?: number
 }
 
-export { INotificationProps }
+export {INotificationProps};

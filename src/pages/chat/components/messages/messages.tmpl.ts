@@ -21,6 +21,6 @@ const template = `<header class="messages-header relative d-flex justify-start a
                         <button class="send d-flex justify-center align-center ml-4 pa-2">
                             <i class="fas fa-arrow-right"></i>
                         </button>
-                    </div>`
+                    </div>`;
 
-export { template }
+export {template};

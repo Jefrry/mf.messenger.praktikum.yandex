@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 interface ILoginData {
   login: string,
   password: string
@@ -23,4 +24,4 @@ interface IUserInfoData {
   avatar: string
 }
 
-export { ILoginData, ISignupData, IUserInfoData }
+export {ILoginData, ISignupData, IUserInfoData};

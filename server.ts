@@ -7,5 +7,5 @@ app.use(express.static('static'));
 app.use(express.static('src'));
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен: http://localhost:${PORT}/`);
+	console.log(`Сервер запущен: http://localhost:${PORT}/`);
 });

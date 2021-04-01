@@ -17,4 +17,4 @@ interface IRequestOptionsWithMethod extends IRequestOptions {
   method: METHODS
 }
 
-export { METHODS, IRequestOptions, IRequestOptionsWithMethod }
+export {METHODS, IRequestOptions, IRequestOptionsWithMethod};

@@ -1,5 +1,5 @@
-import { router } from './modules/router/router.js'
+import {router} from './modules/router/router.js';
 
-router.start()
+router.start();
 
-console.log('STARTED')
+console.log('STARTED');

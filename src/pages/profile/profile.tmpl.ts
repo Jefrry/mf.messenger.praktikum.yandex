@@ -15,6 +15,6 @@ const template = `<a href="/#/chat" class="back-area d-flex flex-column justify-
                   <div class="profile-buttons d-flex flex-column mt-10">
                   
                   </div>
-                  </div>`
+                  </div>`;
 
-export {template}
+export {template};
