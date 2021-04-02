@@ -64,12 +64,9 @@ export default class PageChat extends Block {
 
 	showModal() {
 		const pageContainer = document.querySelector('.page');
-		// TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
 		this.modalContent = new ModalContent({});
-		this.modal = new ModalComp({content: ''});
+		this.modal = new ModalComp({content: this.modalContent.getContent()});
 		this.modalContent.contentFilled = () => {
-			this.modal.element.appendChild(this.modalContent.element);
-
 			if (pageContainer) {
 				pageContainer.prepend(this.modal.getContent());
 			}

@@ -93,12 +93,9 @@ export default class PageProfile extends Block {
 		const pageContainer = document.querySelector('.page');
 		const avatarHover = document.querySelector('.avatar_hover');
 
-		// TODO нужно будет сделать чтобы модалка принимала контент в виде HTML
 		const modalContent = new ModalContent({});
-		const modal = new ModalComp({content: ''});
+		const modal = new ModalComp({content: modalContent.getContent()});
 		modalContent.contentFilled = () => {
-			modal.element.appendChild(modalContent.element);
-
 			if (pageContainer) {
 				pageContainer.prepend(modal.getContent());
 			}
