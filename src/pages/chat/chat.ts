@@ -67,9 +67,9 @@ export default class PageChat extends Block {
 		this.modalContent = new ModalContent({});
 		this.modal = new ModalComp({content: this.modalContent.getContent()});
 		this.modalContent.contentFilled = () => {
-			if (pageContainer) {
+			// if (pageContainer) {
 				pageContainer.prepend(this.modal.getContent());
-			}
+			// }
 
 			this.modalContent.createChat = this.createChat.bind(this);
 

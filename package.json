@@ -23,7 +23,9 @@
     "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
     "wait-ts": "wait-on server.js && npm run start",
     "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run wait-ts\"",
-    "lint-fix": "eslint . --ext .ts --fix"
+    "lint-fix": "eslint . --ext .ts --fix",
+    "lint": "eslint . --ext .ts",
+    "ts": "tsc"
   },
   "repository": {
     "type": "git",
@@ -44,9 +46,15 @@
     "@typescript-eslint/parser": "^4.20.0",
     "eslint": "^7.23.0",
     "eslint-config-xo": "^0.35.0",
+    "husky": "^6.0.0",
     "postcss": "^8.2.8",
     "postcss-cli": "^8.3.1",
     "postcss-for": "^2.1.1",
     "typescript": "4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "concurrently --kill-others \"npm run lint\" \"npm run ts\" \"npm run test\""
+    }
   }
 }
