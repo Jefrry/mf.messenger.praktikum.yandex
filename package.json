@@ -25,7 +25,8 @@
     "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run wait-ts\"",
     "lint-fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
-    "ts": "tsc"
+    "ts": "tsc",
+    "prepare": "concurrently husky install \"npm run lint\" \"npm run ts\" \"npm run test\""
   },
   "repository": {
     "type": "git",
@@ -51,10 +52,5 @@
     "postcss-cli": "^8.3.1",
     "postcss-for": "^2.1.1",
     "typescript": "4.2.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "concurrently --kill-others \"npm run lint\" \"npm run ts\" \"npm run test\""
-    }
   }
 }
