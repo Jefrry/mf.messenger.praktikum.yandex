@@ -20,19 +20,18 @@
     "node": ">= 12.0.0"
   },
   "scripts": {
-    "test": "mocha",
-    "start": "node server.js",
-    "ts-watch": "tsc -w",
+    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run build\" \"npm run wait-ts\" ",
     "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
+    "ts-watch": "tsc -w",
+    "build": "webpack --watch",
     "wait-ts": "wait-on server.js && npm run start",
-    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run wait-ts\"",
-    "build": "webpack",
+    "start": "node server.js",
+    "precommit": "npm run validate",
+    "validate": "concurrently \"npm run lint\" \"npm run ts\" \"npm run test\"",
+    "test": "mocha",
     "lint-fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
-    "ts": "tsc",
-    "validate": "concurrently \"npm run lint\" \"npm run ts\" \"npm run test\"",
-    "precommit": "npm run validate",
-    "prepush": "npm run validate"
+    "ts": "tsc"
   },
   "repository": {
     "type": "git",
