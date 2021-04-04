@@ -20,10 +20,10 @@
     "node": ">= 12.0.0"
   },
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run build\" \"npm run wait-ts\" ",
+    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"webpack --watch\" \"npm run wait-ts\" ",
     "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
     "ts-watch": "tsc -w",
-    "build": "webpack --watch",
+    "build": "webpack",
     "wait-ts": "wait-on server.js && npm run start",
     "start": "node server.js",
     "precommit": "npm run validate",

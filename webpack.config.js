@@ -25,7 +25,7 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'fonts/[name].[hash:5].[ext]'
+							name: 'css/fonts/[name].[hash:5].[ext]'
 						}
 					}
 				]
