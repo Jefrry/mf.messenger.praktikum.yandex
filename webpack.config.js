@@ -25,7 +25,8 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'css/fonts/[name].[hash:5].[ext]'
+							name: 'fonts/[name].[hash:5].[ext]',
+							publicPath: '../'
 						}
 					}
 				]
