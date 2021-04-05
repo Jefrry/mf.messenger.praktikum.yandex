@@ -1,7 +1,7 @@
-import { IBlockCompProps } from "../block/block.type";
+import {IBlockCompProps} from '../block/block.type';
 
 interface IModalCompProps extends IBlockCompProps {
-    content: string
+    content: string | HTMLElement
 }
 
-export {IModalCompProps}
+export {IModalCompProps};

@@ -1,4 +1,4 @@
-import { IBlockCompProps } from "../../../../components/block/block.type";
+import {IBlockCompProps} from '../../../../components/block/block.type';
 
 interface IProfileInfoCompProps extends IBlockCompProps {
   items: IProfileInfoCompPropsItem[]
@@ -9,6 +9,6 @@ interface IProfileInfoCompPropsItem extends IBlockCompProps {
 }
 
 export {
-  IProfileInfoCompProps,
-  IProfileInfoCompPropsItem
-}
+	IProfileInfoCompProps,
+	IProfileInfoCompPropsItem
+};

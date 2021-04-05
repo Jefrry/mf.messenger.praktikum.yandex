@@ -1,3 +1,3 @@
-const template: string = `{{content}}`
+const template: string = '{{content}}';
 
-export {template}
+export {template};

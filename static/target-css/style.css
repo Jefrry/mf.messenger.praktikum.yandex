@@ -2330,6 +2330,36 @@ input[type=file] {
       color: #3369f3;
       cursor: pointer;
   }
+@-webkit-keyframes showNotification {
+    from { transform: translateY(-45px); }
+    to { transform: translateY(0px); }
+   }
+@keyframes showNotification {
+    from { transform: translateY(-45px); }
+    to { transform: translateY(0px); }
+   }
+.app-notification {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    margin: 0 auto;
+    width: auto;
+    max-width: 15%;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transform: translateY(-45px);
+    -webkit-animation: showNotification 1s forwards;
+            animation: showNotification 1s forwards
+  }
+.app-notification.app-notification_error {
+    background-color: #ff5252;
+  }
+.app-notification.app-notification_success {
+    background-color: #4caf50;
+  }
 .page-chat .chats {
     flex-grow: 1;
     background-color: #fbfbfb;

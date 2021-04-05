@@ -1,7 +1,7 @@
-import { IBlockCompProps } from "../block/block.type";
+import {IBlockCompProps} from '../block/block.type';
 
 interface IValidationErrorCompProps extends IBlockCompProps {
   text: string
 }
 
-export {IValidationErrorCompProps}
+export {IValidationErrorCompProps};

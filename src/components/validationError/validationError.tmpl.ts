@@ -1,2 +1,2 @@
-const template: string = `{{text}}`
-export {template}
+const template: string = '{{text}}';
+export {template};

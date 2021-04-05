@@ -6,6 +6,6 @@ const template = `<div class="card shadow d-flex flex-column justify-space-betwe
                   <div class="buttons d-flex flex-column align-center">
                       <a href="/#/signup" class="link mt-4">Нет аккаунта?</a>
                   </div>
-                  </div>`
+                  </div>`;
 
-export {template}
+export {template};

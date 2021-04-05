@@ -9,7 +9,6 @@ const template = `<header class="messages-header relative d-flex justify-start a
                         </button>
                     </header>
                     <div class="messages-area d-flex flex-column justify-end mx-5">
-                        <span class="date align-self-center my-4">19 июня</span>
                         
                     </div>
                     <div class="messages-controls relative d-flex justify-space-between align-center mx-5 my-4">
@@ -22,6 +21,6 @@ const template = `<header class="messages-header relative d-flex justify-start a
                         <button class="send d-flex justify-center align-center ml-4 pa-2">
                             <i class="fas fa-arrow-right"></i>
                         </button>
-                    </div>`
+                    </div>`;
 
-export { template }
+export {template};

@@ -4,6 +4,42 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "autoprefixer": "^10.2.5",
+    "chai": "^4.2.0",
+    "concurrently": "^6.0.0",
+    "css-loader": "^5.2.0",
+    "express": "^4.17.1",
+    "file-loader": "^6.2.0",
+    "mocha": "latest",
+    "postcss-calc": "^8.0.0",
+    "postcss-import": "^14.0.0",
+    "style-loader": "^2.0.0",
+    "wait-on": "^5.2.1"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"webpack --watch\" \"npm run wait-ts\" ",
+    "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
+    "ts-watch": "tsc -w && npm run start",
+    "build": "webpack",
+    "wait-ts": "wait-on server.js && npm run start",
+    "start": "node server.js",
+    "precommit": "npm run validate",
+    "validate": "concurrently \"npm run lint\" \"npm run ts\" \"npm run test\"",
+    "test": "mocha",
+    "lint-fix": "eslint . --ext .ts --fix",
+    "lint": "eslint . --ext .ts",
+    "ts": "tsc"
+  }, 
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jefrry/yandex-praktikum-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -12,35 +48,20 @@
     "@types/chai": "^4.2.14",
     "@types/express": "^4.17.11",
     "@types/mocha": "^5.2.7",
-    "autoprefixer": "^10.2.5",
-    "chai": "^4.2.0",
-    "concurrently": "^6.0.0",
-    "express": "^4.17.1",
-    "mocha": "latest",
-    "postcss-calc": "^8.0.0",
-    "postcss-import": "^14.0.0",
-    "wait-on": "^5.2.1"
-  },
-  "engines": {
-    "node": ">= 12.0.0"
-  },
-  "scripts": {
-    "test": "mocha",
-    "start": "node server.js",
-    "ts-watch": "tsc -w",
-    "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
-    "wait-ts": "wait-on server.js && npm run start",
-    "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"npm run wait-ts\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jefrry/yandex-praktikum-chat.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "postcss": "^8.2.8",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-config-xo": "^0.35.0",
+    "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
+    "mini-css-extract-plugin": "^1.4.0",
+    "postcss": "^8.2.9",
     "postcss-cli": "^8.3.1",
-    "postcss-for": "^2.1.1"
+    "postcss-for": "^2.1.1",
+    "postcss-loader": "^5.2.0",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0"
   }
 }

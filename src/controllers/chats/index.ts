@@ -1,2 +1,2 @@
-import { chatsController, IChatsListData } from "./chats.js";
-export { chatsController, IChatsListData }
+import {chatsController, IChatsListData, ICreateChatData, ISubOnNewMessages, IMessage} from './chats.js';
+export {chatsController, IChatsListData, ICreateChatData, ISubOnNewMessages, IMessage};

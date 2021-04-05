@@ -1,0 +1,4 @@
+/build
+**/*.js
+**/*.test.ts
+/node_modules
