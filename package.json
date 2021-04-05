@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "concurrently --kill-others \"npm run css-watch\" \"npm run ts-watch\" \"webpack --watch\" \"npm run wait-ts\" ",
     "css-watch": "postcss \"static/css/style.css\" -o \"static/target-css/style.css\" -w",
-    "ts-watch": "tsc -w",
+    "ts-watch": "tsc -w && npm run start",
     "build": "webpack",
     "wait-ts": "wait-on server.js && npm run start",
     "start": "node server.js",
